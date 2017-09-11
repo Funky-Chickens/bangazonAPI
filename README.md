@@ -9,19 +9,18 @@
 - add comments to explain confusing code
 
 
-## Template for PR comments:
-I made the following changes:
--change
--reason
+## Template for PR comments:  
+I made the following changes:  
+- change  
+- reason
 
 
 ### Steps to test:
--System config (if different)
--Added 3rd party libraries (if added)
--Command line utilities to run:
-		* nodemon etc.
--UI actions to try and expected outcomes:
--click "log in"
+- System config (if different)
+- Added 3rd party libraries (if added)
+- Command line utilities to run (nodemon etc.)
+- UI actions to try and expected outcomes:
+1. click "log in"
 - should redirect to log in form
 
 (link to feature ticket)
