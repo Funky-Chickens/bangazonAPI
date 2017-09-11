@@ -26,6 +26,13 @@
 ### (link to feature ticket)
 
 
+## When reviewing PR:
+
++ Pull down the branch and run it on your machine, testing all the 'steps to test' in the PR.
++ Find and put github comment on commented out code and console logs.
++ If there is any piece of code you don't understand, put a comment question (on github).
++ If something looks 'off' style wise, check the airbnb style guide and put a note with that info.
+
 
 
 
