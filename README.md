@@ -10,7 +10,7 @@
 
 
 ## Template for PR comments:  
-I made the following changes:  
+### I made the following changes:  
 - change  
 - reason
 
@@ -23,7 +23,7 @@ I made the following changes:
 1. click "log in"
 - should redirect to log in form
 
-(link to feature ticket)
+### (link to feature ticket)
 
 
 
