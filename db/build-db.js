@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('bangazon.sqlite');
+const { generateProdTypes, generateProducts } = require('./products-db.js');
 
 db.serialize(function(){
     db.run(`DROP TABLE IF EXISTS users`);
@@ -103,4 +104,38 @@ db.serialize(function(){
         issued_date TEXT NOT NULL,
         returned_date TEXT NOT NULL
     )`);
+
+
+
+//run all functions to populate database with initial data (fake stuff)
+
+//users
+
+//product types
+    let productTypesArray = generateProdTypes();
+    productTypesArray.forEach( (prodTypeObj) => {
+        db.run(`INSERT INTO productTypes (label) VALUES ("${prodTypeObj.label}")`)
+    });
+
+
+// // products
+    let productsArray = generateProducts();
+    productsArray.forEach( (prodObj) => {
+        db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
+    });
+
+// payment_types
+
+// orders
+
+//departments
+
+//employees
+
+//computers
+
+//training programs
+
+
+
 });
