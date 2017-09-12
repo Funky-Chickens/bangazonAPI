@@ -105,13 +105,15 @@ db.serialize(function(){
         issued_date TEXT NOT NULL,
         returned_date TEXT NOT NULL
     )`);
+    
+    let usersArray = generateUsers();
+    usersArray.forEach( (userObj) => {
+        db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
+        ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
+        "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
+    })
+    
 });
 
 
-let usersArray = generateUsers();
-usersArray.forEach( (userObj) => {
-    db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
-    ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
-    "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
-})
 
