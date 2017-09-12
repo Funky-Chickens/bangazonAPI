@@ -1,6 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('bangazon.sqlite');
 
+//faker data
+const { generateTraining } = require('./training-progs-db');
+const { generateOrders } = require('./orders-db');
+
 db.serialize(function(){
     db.run(`DROP TABLE IF EXISTS users`);
     db.run(`DROP TABLE IF EXISTS computers`);
@@ -103,4 +107,16 @@ db.serialize(function(){
         issued_date TEXT NOT NULL,
         returned_date TEXT NOT NULL
     )`);
+});
+
+//run faker data for ORDERS
+let orders = generateOrders();
+orders.forEach((orderObj)  => {
+    db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`);
+});
+
+//run faker data for TRAINING
+let training = generateTraining();
+training.forEach((trainingObj) => {
+    db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
 });
