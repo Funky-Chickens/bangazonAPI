@@ -116,14 +116,14 @@ db.serialize(function(){
 //run faker data for ORDERS
     let orders = generateOrders();
     orders.forEach((orderObj)  => {
-        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
+        db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, 
             ${orderObj.buyer_id})`);
     });
 
 //run faker data for TRAINING table
     let training = generateTraining();
     training.forEach((trainingObj) => {
-        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
+        db.run(`INSERT INTO training VALUES (null, "${trainingObj.program_name}", 
             "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
     });
 
