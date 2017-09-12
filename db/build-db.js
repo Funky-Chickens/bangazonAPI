@@ -115,19 +115,20 @@ db.serialize(function(){
         db.run(`INSERT INTO users VALUES 
         ( null, "${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
         "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
-    })
+    });
 
 //product types
     let productTypesArray = generateProdTypes();
     productTypesArray.forEach( (prodTypeObj) => {
-        db.run(`INSERT INTO productTypes (label) VALUES ("${prodTypeObj.label}")`)
+        db.run(`INSERT INTO productTypes VALUES (null, "${prodTypeObj.label}")`)
     });
 
 
 // // products
     let productsArray = generateProducts();
     productsArray.forEach( (prodObj) => {
-        db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
+        db.run(`INSERT INTO products VALUES 
+        (null, ${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
     });
 
 // payment_types
