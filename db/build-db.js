@@ -5,16 +5,16 @@ db.serialize(function(){
 
     //drop existing tables to get up-to-date info  -- not sure of order to put in
     db.run(`DROP TABLE IF EXISTS departments`);
-    db.run(`DROP TABLE IF EXISTS productCategories`);
+    db.run(`DROP TABLE IF EXISTS productTypes`);
     db.run(`DROP TABLE IF EXISTS productOrders`);
     db.run(`DROP TABLE IF EXISTS products`);
     db.run(`DROP TABLE IF EXISTS orders`);
-    db.run(`DROP TABLE IF EXISTS paymentTypes`);
+    db.run(`DROP TABLE IF EXISTS paymentOptions`);
     db.run(`DROP TABLE IF EXISTS employees`);
     db.run(`DROP TABLE IF EXISTS employeeTraining`);
     db.run(`DROP TABLE IF EXISTS training`);
     db.run(`DROP TABLE IF EXISTS computers`);
-    db.run(`DROP TABLE IF EXISTS customers`);
+    db.run(`DROP TABLE IF EXISTS users`);
 
     db.run(`CREATE TABLE IF NOT EXISTS users(
         user_id INTEGER PRIMARY KEY NOT NULL,
