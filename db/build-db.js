@@ -142,7 +142,7 @@ db.serialize(function(){
     });
 
 
-// // products
+// products
     let productsArray = generateProducts();
     productsArray.forEach( (prodObj) => {
         db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
