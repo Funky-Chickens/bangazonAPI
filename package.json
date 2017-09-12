@@ -1,0 +1,20 @@
+{
+  "name": "FunkyChickensAPI",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "db:reset": "node db/build-db",
+    "start": "nodemon bin/express101",
+    "test": "nodemon --exec \"mocha --recursive\" -R list"
+  },
+  "engines": {
+    "node": "7.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "dotenv": "^4.0.0",
+    "express": "~4.14.1",
+    "faker": "^4.1.0",
+    "sqlite3": "^3.1.9"
+  }
+}
