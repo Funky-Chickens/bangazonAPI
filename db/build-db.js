@@ -109,7 +109,6 @@ db.serialize(function(){
 
     let departmentsArr = generateDepartments();
     departmentsArr.forEach((deptObj)=>{
-        console.log(deptObj);
         db.run(`INSERT INTO departments(dept_name, department_id, supervisor_id, budget)
         VALUES("${deptObj.dept_name}",${deptObj.department_id}, ${deptObj.supervisor},"${deptObj.budget}")`);
     });

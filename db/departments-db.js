@@ -5,10 +5,10 @@ const faker = require('faker')
 module.exports.generateDepartments = () => {
   let departments = [];
 
-  for (let i = 0; i < 20; i++) {//20 departments total
+  for (let i = 1; i < 20; i++) {//20 departments total
     let dept_name = faker.commerce.department();
     let department_id = i;
-    let supervisor = Math.floor(Math.random() * 50) + 1;
+    let supervisor = i*2; //to avoid duplicates
     let budget = faker.finance.amount();
 
     departments.push({
