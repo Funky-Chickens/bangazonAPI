@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('bangazon.sqlite');
+const { generateUsers } = require('./users-db');
 
 db.serialize(function(){
     db.run(`DROP TABLE IF EXISTS users`);
@@ -17,15 +18,16 @@ db.serialize(function(){
 
     db.run(`CREATE TABLE IF NOT EXISTS users(
         user_id INTEGER PRIMARY KEY NOT NULL,
-        first_name TEXT UNIQUE NOT NULL,
-        last_name TEXT UNIQUE NOT NULL,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
         start_date TEXT NOT NULL,
         last_login TEXT NOT NULL,
         street_address TEXT NOT NULL,
         city TEXT NOT NULL,
         state TEXT NOT NULL,
         postal_code INTEGER NOT NULL,
-        phone TEXT NOT NULL
+        phone TEXT NOT NULL,
+        email TEXT NOT NULL
     )`);
 
     db.run(`CREATE TABLE IF NOT EXISTS computers(
@@ -103,4 +105,15 @@ db.serialize(function(){
         issued_date TEXT NOT NULL,
         returned_date TEXT NOT NULL
     )`);
+    
+    let usersArray = generateUsers();
+    usersArray.forEach( (userObj) => {
+        db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
+        ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
+        "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
+    })
+    
 });
+
+
+
