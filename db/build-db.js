@@ -1,7 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('bangazon.sqlite');
+
 const { generateProdTypes, generateProducts } = require('./products-db.js');
 const { generateUsers } = require('./users-db');
+const { generateDepartments } = require('./departments-db.js');
+
 
 db.serialize(function(){
     db.run(`DROP TABLE IF EXISTS users`);
@@ -107,6 +110,7 @@ db.serialize(function(){
         returned_date TEXT NOT NULL
     )`);
 
+
 //run all functions to populate database with initial data (fake stuff)
 
 //users
@@ -135,7 +139,11 @@ db.serialize(function(){
 // orders
 
 //departments
-
+   let departmentsArr = generateDepartments();
+   departmentsArr.forEach((deptObj)=>{
+        db.run(`INSERT INTO departments(dept_name, department_id, supervisor_id, budget)
+        VALUES("${deptObj.dept_name}",${deptObj.department_id}, ${deptObj.supervisor},"${deptObj.budget}")`);
+    });
 //employees
 
 //computers
@@ -145,3 +153,4 @@ db.serialize(function(){
 
 
 });
+
