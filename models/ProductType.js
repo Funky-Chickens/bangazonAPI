@@ -17,5 +17,10 @@ module.exports = {
                 resolve(productType)
             });
         });
+    },
+    addType: () => {
+        return new Promise( (resolve, reject) => {
+            db.post()
+        })
     }
 }
