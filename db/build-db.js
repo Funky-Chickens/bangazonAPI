@@ -1,14 +1,16 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(__dirname+'/bangazon.sqlite');
+const db = new sqlite3.Database('bangazon.sqlite');
+const { generateEmployees } = require('./employees-db');
+const { generatePaymentOptions } = require('./payment-options-db');
 
 const { generateProdTypes, generateProducts } = require('./products-db.js');
 const { generateUsers } = require('./users-db');
 const { generateDepartments } = require('./departments-db.js');
-const { generateTraining } = require('./training-progs-db');
-const { generateOrders } = require('./orders-db');
-const {generateComputers } = require('./computers-db.js');
+
 
 //faker data
+const { generateTraining } = require('./training-progs-db');
+const { generateOrders } = require('./orders-db');
 
 db.serialize(function(){
     db.run(`DROP TABLE IF EXISTS users`);
@@ -61,7 +63,8 @@ db.serialize(function(){
     db.run(`CREATE TABLE IF NOT EXISTS employees(
         employee_id INTEGER PRIMARY KEY NOT NULL,
         department INTEGER NOT NULL,
-        name TEXT NOT NULL,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
         hire_date TEXT NOT NULL
     )`);
 
@@ -117,57 +120,58 @@ db.serialize(function(){
 //run faker data for ORDERS
     let orders = generateOrders();
     orders.forEach((orderObj)  => {
-        db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, 
+        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
             ${orderObj.buyer_id})`);
     });
 
 //run faker data for TRAINING table
     let training = generateTraining();
     training.forEach((trainingObj) => {
-        db.run(`INSERT INTO training VALUES (null, "${trainingObj.program_name}", 
+        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
             "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
     });
 
 //users
     let usersArray = generateUsers();
     usersArray.forEach( (userObj) => {
-        db.run(`INSERT INTO users VALUES 
-        ( null, "${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
+        db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
+        ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
         "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
-    });
+    })
 
 //product types
     let productTypesArray = generateProdTypes();
     productTypesArray.forEach( (prodTypeObj) => {
-        db.run(`INSERT INTO productTypes VALUES (null, "${prodTypeObj.label}")`)
+        db.run(`INSERT INTO productTypes (label) VALUES ("${prodTypeObj.label}")`)
     });
 
 
 // products
     let productsArray = generateProducts();
     productsArray.forEach( (prodObj) => {
-        db.run(`INSERT INTO products VALUES 
-        (null, ${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
+        db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
     });
 
 // payment_types
-
+    let paymentOptsArray = generatePaymentOptions();
+    paymentOptsArray.forEach( (payObj) => {
+        db.run(`INSERT INTO paymentOptions VALUES (null, ${payObj.buyer_id}, '${payObj.payment_option_name}', ${payObj.account_number})`);
+    });
 // orders
 
 //departments
    let departmentsArr = generateDepartments();
-   departmentsArr.forEach((deptObj) => {
+   departmentsArr.forEach((deptObj)=>{
         db.run(`INSERT INTO departments(dept_name, department_id, supervisor_id, budget)
         VALUES("${deptObj.dept_name}",${deptObj.department_id}, ${deptObj.supervisor},"${deptObj.budget}")`);
     });
 //employees
-
+    let employeesArray = generateEmployees()
+    employeesArray.forEach( (empObj) => {
+        db.run(`INSERT INTO employees VALUES (null, ${empObj.department}, '${empObj.first_name}', '${empObj.last_name}', '${empObj.hire_date}')`);
+    });
 //computers
-let computersArr = generateComputers();
-computersArr.forEach((compObj) => {
-    db.run(`INSERT INTO computers(purchase_date, decomission_date) VALUES("${compObj.purchase_date}", "${compObj.decomission_date}")`);
-});
+
 //training programs
 
 });
-
