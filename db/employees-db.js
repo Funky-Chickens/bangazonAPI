@@ -16,5 +16,6 @@ module.exports.generateEmployees = () => {
             "hire_date": hireDate
         });
     };
+    console.log(employees)
     return employees;
 };
