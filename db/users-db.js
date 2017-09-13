@@ -4,7 +4,6 @@ const faker = require('faker')
 
 module.exports.generateUsers = () => {
   let users = [];
-
   for (let i = 0; i < 50; i++) {
     let firstName = faker.name.firstName();
     let lastName = faker.name.lastName();

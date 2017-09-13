@@ -6,6 +6,7 @@ const { generateUsers } = require('./users-db');
 const { generateDepartments } = require('./departments-db.js');
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
+const {generateComputers } = require('./computers-db.js');
 
 //faker data
 
@@ -155,14 +156,17 @@ db.serialize(function(){
 
 //departments
    let departmentsArr = generateDepartments();
-   departmentsArr.forEach((deptObj)=>{
+   departmentsArr.forEach((deptObj) => {
         db.run(`INSERT INTO departments(dept_name, department_id, supervisor_id, budget)
         VALUES("${deptObj.dept_name}",${deptObj.department_id}, ${deptObj.supervisor},"${deptObj.budget}")`);
     });
 //employees
 
 //computers
-
+let computersArr = generateComputers();
+computersArr.forEach((compObj) => {
+    db.run(`INSERT INTO computers(purchase_date, decomission_date) VALUES("${compObj.purchase_date}", "${compObj.decomission_date}")`);
+});
 //training programs
 
 });
