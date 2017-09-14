@@ -30,6 +30,18 @@ module.exports ={
                 resolve(product);
                 });
         });
+    },
+
+    deleteOneProduct:(id)=>{
+        console.log("id2", id);
+        return new Promise((resolve, reject)=>{//select product by product id and delete a single product 
+            db.run(`DELETE 
+	            FROM products
+                WHERE product_id = ${id}`, (err, product)=>{
+                if (err) return reject(err);
+                resolve(product);
+                });
+        });
     }
 
 //post, put, patch, delete (whatever's required) also here for user
