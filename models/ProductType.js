@@ -25,5 +25,13 @@ module.exports = {
                 resolve(pType);
             });
         });
+    },
+    replaceType: (id, prodType) => {
+        return new Promise( (resolve, reject) => {
+            db.run(`UPDATE productTypes SET type_id = ${id}, label = "${prodType.label}" WHERE type_id = ${id}`, (err, pType) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        })
     }
 }
