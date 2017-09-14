@@ -21,7 +21,7 @@ module.exports.getOneUserById =(req, res, next)=>{
     })
 }
 
-//MAKE SURE the dev sets POSTMAN to JSON not text.
+//MAKE SURE to set POSTMAN body to JSON not text.
 module.exports.postUser = (req, res, next) => {
     postUserObj(req.body)
     .then((data) => {
