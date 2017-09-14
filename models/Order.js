@@ -5,6 +5,19 @@
 let sqlite3 = require ('sqlite3').verbose();
 let db = new sqlite3.Database('./db/bangazon.sqlite');
 
+let formatOrder = (order) => {
+    let formattedOrder = {
+        "order_id": order[0].order_id,
+        "order_date": order[0].order_date,
+        "buyer_id": order[0].buyer_id,
+        "products": []
+    };
+    order.forEach(orderItem => {
+        formattedOrder.products.push({"product_id": orderItem.product_id, "name": orderItem.product_name, "price": orderItem.price, "quantity": orderItem.quantity_avail});
+    })
+    return formattedOrder
+}
+
 module.exports ={
     getOrders:()=>{//method that returns a promise-- see .then in ordersCtrl
         return new Promise((resolve, reject)=>{
@@ -18,14 +31,14 @@ module.exports ={
     },
     getOneOrder:(id)=>{
         return new Promise((resolve, reject)=>{//select order by order id and see order name
-            db.get(`SELECT *
+            db.all(`SELECT *
 	            FROM orders
-                WHERE order_id = ${id}
                 LEFT JOIN productOrders ON orders.order_id = productOrders.order_id 
                 LEFT JOIN products ON products.product_id = productOrders.product_id
+                WHERE orders.order_id = ${id}
                 `, (err, order)=>{
-                if (err) return reject(err);
-                resolve(order);
+                    if (err) return reject(err);
+                    resolve(formatOrder(order));
                 });
         });
     },
