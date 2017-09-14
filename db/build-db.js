@@ -2,17 +2,14 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(__dirname+'/bangazon.sqlite');
 const { generateEmployees } = require('./employees-db');
 const { generatePaymentOptions } = require('./payment-options-db');
-
 const { generateProdTypes, generateProducts } = require('./products-db.js');
 const { generateUsers } = require('./users-db');
 const { generateDepartments } = require('./departments-db.js');
-
-
 //faker data
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
-
 db.serialize( () => {
+
     db.run(`DROP TABLE IF EXISTS users`);
     db.run(`DROP TABLE IF EXISTS computers`);
     db.run(`DROP TABLE IF EXISTS training`);
@@ -25,7 +22,6 @@ db.serialize( () => {
     db.run(`DROP TABLE IF EXISTS productTypes`);
     db.run(`DROP TABLE IF EXISTS departments`);
     db.run(`DROP TABLE IF EXISTS computerEmployees `);
-
     db.run(`CREATE TABLE IF NOT EXISTS users(
         user_id INTEGER PRIMARY KEY NOT NULL,
         first_name TEXT NOT NULL,
@@ -39,13 +35,11 @@ db.serialize( () => {
         phone TEXT NOT NULL,
         email TEXT NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS computers(
         computer_id INTEGER PRIMARY KEY NOT NULL,
         purchase_date TEXT NOT NULL,
         decomission_date TEXT NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS training(
         program_id INTEGER PRIMARY KEY NOT NULL,
         program_name TEXT NOT NULL,
@@ -53,13 +47,11 @@ db.serialize( () => {
         end_date TEXT NOT NULL,
         max_attendees INTEGER NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS employeeTraining(
         empTrain_id INTEGER PRIMARY KEY NOT NULL,
         employee_id INTEGER NOT NULL,
         training_program_Id INTEGER NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS employees(
         employee_id INTEGER PRIMARY KEY NOT NULL,
         department INTEGER NOT NULL,
@@ -67,21 +59,18 @@ db.serialize( () => {
         last_name TEXT NOT NULL,
         hire_date TEXT NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS paymentOptions(
         payment_id INTEGER PRIMARY KEY NOT NULL,
         buyer_id INTEGER NOT NULL,
         payment_option_name TEXT NOT NULL,
         account_number INTEGER NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS orders(
         order_id INTEGER PRIMARY KEY NOT NULL,
         order_date TEXT NOT NULL,
         payment_type INTEGER,
         buyer_id INTEGER NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS products(
         product_id INTEGER PRIMARY KEY NOT NULL,
         type_id INTEGER NOT NULL,
@@ -91,25 +80,21 @@ db.serialize( () => {
         quantity_avail INTEGER NOT NULL,
         price REAL NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS productOrders(
         order_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
         line_item_id INTEGER PRIMARY KEY NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS productTypes(
         type_id INTEGER PRIMARY KEY NOT NULL,
         label TEXT NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS departments(
         department_id INTEGER PRIMARY KEY NOT NULL,
         supervisor_id INTEGER NOT NULL,
         dept_name TEXT NOT NULL,
         budget REAL NOT NULL
     )`);
-
     db.run(`CREATE TABLE IF NOT EXISTS computerEmployees(
         computer_user_id INTEGER PRIMARY KEY,
         employee_id INTEGER NOT NULL,
@@ -117,7 +102,12 @@ db.serialize( () => {
         returned_date TEXT NOT NULL
     )`);
 
-
+//run faker data for TRAINING table
+    let training = generateTraining();
+    training.forEach((trainingObj) => {
+        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
+            "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
+    });
 
 //users
     let usersArray = generateUsers();
@@ -132,14 +122,11 @@ db.serialize( () => {
     productTypesArray.forEach( (prodTypeObj) => {
         db.run(`INSERT INTO productTypes (label) VALUES ("${prodTypeObj.label}")`)
     });
-
-
 // products
     let productsArray = generateProducts();
     productsArray.forEach( (prodObj) => {
         db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
     });
-
 // payment_types
     let paymentOptsArray = generatePaymentOptions();
     paymentOptsArray.forEach( (payObj) => {
@@ -164,12 +151,11 @@ db.serialize( () => {
         db.run(`INSERT INTO employees VALUES (null, ${empObj.department}, "${empObj.first_name}", "${empObj.last_name}", '${empObj.hire_date}')`);
     });
 //computers
-
 //training programs
+
     let training = generateTraining();
     training.forEach((trainingObj) => {
         db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
             "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
     });
-
 });

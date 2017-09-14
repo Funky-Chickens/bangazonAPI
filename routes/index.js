@@ -6,6 +6,7 @@ const router = Router();
 //require in all route files
 router.use(require('./users'));
 router.use(require('./producttypes'));
+router.use(require('./products'));
 router.use(require('./paymentOptions'));
 
 
@@ -14,6 +15,7 @@ router.get('/', (req, res)=>{
     res.json({
 	//list of routes as endpoint guidance for developers
     "users":"bangazonAPI/v1/users",
+    "products":"bangazonAPI/v1/products",
     "paymentOptions":"bangazonAPI/v1/payments"
     //etc
     });
