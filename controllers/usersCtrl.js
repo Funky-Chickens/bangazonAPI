@@ -43,5 +43,3 @@ module.exports.putUser = (req, res, next) => {
     })
 }
 
-//do module.exports for other methods here:  PUT  if necessary
-
