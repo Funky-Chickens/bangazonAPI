@@ -8,7 +8,8 @@ const { generateDepartments } = require('./departments-db.js');
 //faker data
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
-db.serialize(function(){
+db.serialize( () => {
+
     db.run(`DROP TABLE IF EXISTS users`);
     db.run(`DROP TABLE IF EXISTS computers`);
     db.run(`DROP TABLE IF EXISTS training`);
@@ -100,12 +101,14 @@ db.serialize(function(){
         issued_date TEXT NOT NULL,
         returned_date TEXT NOT NULL
     )`);
+
 //run faker data for TRAINING table
     let training = generateTraining();
     training.forEach((trainingObj) => {
         db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
             "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
     });
+
 //users
     let usersArray = generateUsers();
     usersArray.forEach( (userObj) => {
@@ -113,6 +116,7 @@ db.serialize(function(){
         ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
         "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
     });
+
 //product types
     let productTypesArray = generateProdTypes();
     productTypesArray.forEach( (prodTypeObj) => {
@@ -134,6 +138,7 @@ db.serialize(function(){
         db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
             ${orderObj.buyer_id})`);
     });
+
 //departments
    let departmentsArr = generateDepartments();
    departmentsArr.forEach((deptObj)=>{
@@ -147,4 +152,10 @@ db.serialize(function(){
     });
 //computers
 //training programs
+
+    let training = generateTraining();
+    training.forEach((trainingObj) => {
+        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
+            "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
+    });
 });

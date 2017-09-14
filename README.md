@@ -74,7 +74,7 @@ These instructions will get the API up and running on your local machine for tes
   "email": "Aliya_Rodriguez73@gmail.com"  
 }
 
-- To `POST` to users, set Postman to "POST" and set the body type to JSON. Input your JSON object and send.
+- To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
 - To access just one single user, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
 
 ### To access the 'products' resource
