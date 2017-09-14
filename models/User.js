@@ -14,6 +14,7 @@ module.exports ={
             });
         })
     },
+    
     getOneUser:(id)=>{
         return new Promise((resolve, reject)=>{//select user by user id and see user name instead of user id
             db.get(`SELECT *
@@ -34,16 +35,8 @@ module.exports ={
         });
     },
 
-    putUserObj:(id, userObj) => { //need whole userObj this time
-        console.log(id);
-        console.log(userObj);
+    putUserObj:(id, userObj) => { //need whole userObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
-            // db.run(`DELETE FROM users WHERE user_id=?`, ${id}, function(err) {
-            //   if (err) {
-            //     return console.error(err.message);
-            //   }
-            //   console.log(`Row(s) deleted ${this.changes}`);
-            // });
             db.run(`DELETE FROM users WHERE user_id=${id}`)
             db.run(`INSERT INTO users VALUES (${id}, "${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`, (err, user)=>{
                 if (err) return reject(err);
@@ -52,6 +45,5 @@ module.exports ={
         });
     }
 
-//post, put, patch, delete (whatever's required) also here for user
 //exporting methods with value of promises to be called and resolved in controller
 }
