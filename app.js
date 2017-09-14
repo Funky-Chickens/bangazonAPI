@@ -5,7 +5,7 @@ require('dotenv').config();
 let bodyParser = require('body-parser');
 let routes = require('./routes/');
 
-// app.use(bodyParser.urlencoded({extended:false}));
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next)=>{
