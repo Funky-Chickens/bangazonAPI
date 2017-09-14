@@ -110,8 +110,8 @@ _______________________________________________
 _______________________________________________
 - open POSTMAN app in chrome
 - set it to PUT
-- test post a product by entering this url:
-   localhost:8080/bangazonAPI/v1/products
+- test put a product by entering this url:
+   localhost:8080/bangazonAPI/v1/products/[id](product id you want to edit)
 - make sure to set the body to JSON format
 - insert an object to post with the properties listed in the database and the information you wish to 
    post
