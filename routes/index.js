@@ -6,6 +6,7 @@ const router = Router();
 
 //require in all route files
 router.use(require('./users'));
+router.use(require('./producttypes'));
 
 
 //set up get for the home route with guidance based on bangazonAPI/v1/ route
