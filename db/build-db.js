@@ -102,13 +102,6 @@ db.serialize( () => {
         returned_date TEXT NOT NULL
     )`);
 
-//run faker data for TRAINING table
-    let training = generateTraining();
-    training.forEach((trainingObj) => {
-        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
-            "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
-    });
-
 //users
     let usersArray = generateUsers();
     usersArray.forEach( (userObj) => {

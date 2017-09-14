@@ -78,8 +78,48 @@ These instructions will get the API up and running on your local machine for tes
 - To `PUT`(or update) a user's information, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
 
 ### To access the 'products' resource
-- In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/products` (this will automatically get a list of products in JSON format).  It will be in the following format:
+To test:
+- run ```npm run db:reset``` to create the database
+- run ```npm start``` 
+- open up a browser window to use with testing the "gets" below
+______________________________________________
+- test get all product by entering this url:
+    localhost:8080/bangazonAPI/v1/products
 
-- To `POST` to products, set Postman to "POST" and set the body type to JSON. Input your JSON object and send.
+_______________________________________________
+- test get one product by entering this url:
+    localhost:8080/bangazonAPI/v1/products/[id](product id you want to find)
+_______________________________________________
+- open POSTMAN app in chrome
+- set it to DELETE
+- test deleting one product by entering this url:
+    localhost:8080/bangazonAPI/v1/products/[id](product id you want to delete)
+- send request
+- check database to see if item in database was deleted
+
+_______________________________________________
+- open POSTMAN app in chrome
+- set it to POST
+- test post a product by entering this url:
+   localhost:8080/bangazonAPI/v1/products
+- make sure to set the body to JSON format
+- insert an object to post with the properties listed in the database and the information you wish to 
+   post
+- send request
+- check database for information entered
+_______________________________________________
+- open POSTMAN app in chrome
+- set it to PUT
+- test put a product by entering this url:
+   localhost:8080/bangazonAPI/v1/products/[id](product id you want to edit)
+- make sure to set the body to JSON format
+- insert an object to post with the properties listed in the database and the information you wish to 
+   post
+- make sure there is no ID
+- send request
+- check database for information entered
+
+Refer to issue #2
+
 
 
