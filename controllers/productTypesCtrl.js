@@ -1,6 +1,6 @@
 'use strict';
 
-const { getAll, getOne } = require('../models/ProductType');
+const { getAll, getOne, addType } = require('../models/ProductType');
 
 module.exports.getProductTypes = (req, res, next) => {
     getAll()
@@ -19,3 +19,11 @@ module.exports.getOneProductType = ({params: {id}}, res, next) => {
     })
     .catch( (err) => next(err));
 };
+
+module.exports.postProductType = (req, res, next) => {
+    addType(req.body)
+    .then( (data) => {
+        res.status(200);
+    })
+    .catch( (err) => next(err));
+}
