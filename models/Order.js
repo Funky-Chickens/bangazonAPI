@@ -10,10 +10,7 @@ module.exports ={
         return new Promise((resolve, reject)=>{
             db.all(`SELECT * 
                     FROM orders
-                    LEFT JOIN productOrders ON orders.order_id = productOrders.order_id 
-                    LEFT JOIN products ON products.product_id = productOrders.product_id
                     `, (err, orderData)=>{
-                        console.log("order data", orderData);
                     if (err) return reject(err);//if error, pass on to error handler
                     resolve(orderData);
             });
@@ -23,7 +20,10 @@ module.exports ={
         return new Promise((resolve, reject)=>{//select order by order id and see order name
             db.get(`SELECT *
 	            FROM orders
-                WHERE order_id = ${id}`, (err, order)=>{
+                WHERE order_id = ${id}
+                LEFT JOIN productOrders ON orders.order_id = productOrders.order_id 
+                LEFT JOIN products ON products.product_id = productOrders.product_id
+                `, (err, order)=>{
                 if (err) return reject(err);
                 resolve(order);
                 });
