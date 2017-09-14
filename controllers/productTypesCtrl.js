@@ -26,4 +26,12 @@ module.exports.postProductType = (req, res, next) => {
         res.status(200);
     })
     .catch( (err) => next(err));
-}
+};
+
+module.exports.replaceProductType = (req, res, next) => {
+    replaceType(req.body)
+    .then( (data) => {
+        res.status(200);
+    })
+    .catch( (err) => next(err));
+};
