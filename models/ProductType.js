@@ -20,7 +20,7 @@ module.exports = {
     },
     addType: (prodType) => {
         return new Promise( (resolve, reject) => {
-            db.run(`INSERT INTO productTypes (null, "${prodType.label}")`, (err, pType) => {
+            db.run(`INSERT INTO productTypes VALUES (null, "${prodType.label}")`, (err, pType) => {
                 if (err) return reject(err);
                 resolve(pType);
             });
