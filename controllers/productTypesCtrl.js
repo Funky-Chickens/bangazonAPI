@@ -1,6 +1,6 @@
 'use strict';
 
-const { getAll, getOne, addType, replaceType } = require('../models/ProductType');
+const { getAll, getOne, addType, replaceType, deleteType } = require('../models/ProductType');
 
 //grabs all product types
 module.exports.getProductTypes = (req, res, next) => {
@@ -41,9 +41,9 @@ module.exports.replaceProductType = (req, res, next) => {
 };
 
 //takes an ID and deletes corresponding product type
-module.exports.deleteProductType = ({params: {id}}, res, next) => {
+module.exports.deleteAProductType = ({params: {id}}, res, next) => {
     deleteType(id)
-    .then( (data) => {
+    .then( () => {
         res.status(200).end();
     })
     .catch( (err) => next(err));

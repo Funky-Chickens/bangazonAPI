@@ -33,5 +33,13 @@ module.exports = {
                 resolve();
             });
         })
+    },
+    deleteType: (id) => {
+        return new Promise( (resolve, reject) => {
+            db.run(`DELETE FROM productTypes WHERE type_id = ${id}`, (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        })
     }
 }
