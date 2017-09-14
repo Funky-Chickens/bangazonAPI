@@ -25,7 +25,7 @@ module.exports.getOneUserById =(req, res, next)=>{
 module.exports.postUser = (req, res, next) => {
     postUserObj(req.body)
     .then((data) => {
-        res.status(200);
+        res.status(200).end("Posted.");
     })
     .catch((err)=>{
         next(err);
@@ -36,7 +36,7 @@ module.exports.postUser = (req, res, next) => {
 module.exports.putUser = (req, res, next) => {
     putUserObj(req.params.id, req.body)
     .then((data) => {
-        res.status(200);
+        res.status(200).end("Updated.");
     })
     .catch((err)=>{
         next(err);
