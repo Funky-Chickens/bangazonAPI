@@ -1,5 +1,5 @@
-'use strict'
-const{getUsers, getOneUser}= require('../models/User'); //and whatever other methods exported
+ 'use strict'
+const{getUsers, getOneUser, postUserObj}= require('../models/User'); //and whatever other methods exported
 
 module.exports.getAll=(req, res, next)=>{
     getUsers()//from models folder
@@ -21,5 +21,16 @@ module.exports.getOneUserById =(req, res, next)=>{
     })
 }
 
-//do module.exports for other methods here: POST PUT PATCH UPDATE DELETE if necessary
+//MAKE SURE the dev sets POSTMAN to JSON not text.
+module.exports.postUser = (req, res, next) => {
+    postUserObj(req.body)
+    .then((data) => {
+        res.status(200);
+    })
+    .catch((err)=>{
+        next(err);
+    })
+}
+
+//do module.exports for other methods here:  PUT  if necessary
 
