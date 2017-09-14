@@ -33,7 +33,6 @@ module.exports ={
     },
 
     deleteOneProduct:(id)=>{
-        console.log("id2", id);
         return new Promise((resolve, reject)=>{//select product by product id and delete a single product 
             db.run(`DELETE 
 	            FROM products

@@ -21,7 +21,6 @@ module.exports.getOneProduct = ({params: {id}}, res, next) => {
 };
 
 module.exports.deleteOneProduct = ({params: {id}}, res, next) => {
-    console.log("id1", id);
     deleteOneProduct(id)
     .then( () => {
         res.status(200).end();
