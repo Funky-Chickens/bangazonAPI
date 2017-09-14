@@ -5,8 +5,7 @@ require('dotenv').config();
 let bodyParser = require('body-parser');
 let routes = require('./routes/');
 
-//might need this mysterious line once we are doing other things with URLS?
-// app.use(bodyParser.urlencoded({extended:false}));
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next)=>{
