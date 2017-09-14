@@ -12,7 +12,7 @@ const { generateDepartments } = require('./departments-db.js');
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
 
-db.serialize(function(){
+db.serialize( () => {
     db.run(`DROP TABLE IF EXISTS users`);
     db.run(`DROP TABLE IF EXISTS computers`);
     db.run(`DROP TABLE IF EXISTS training`);
@@ -117,19 +117,7 @@ db.serialize(function(){
         returned_date TEXT NOT NULL
     )`);
 
-//run faker data for ORDERS
-    let orders = generateOrders();
-    orders.forEach((orderObj)  => {
-        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
-            ${orderObj.buyer_id})`);
-    });
 
-//run faker data for TRAINING table
-    let training = generateTraining();
-    training.forEach((trainingObj) => {
-        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
-            "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
-    });
 
 //users
     let usersArray = generateUsers();
@@ -137,7 +125,7 @@ db.serialize(function(){
         db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
         ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
         "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
-    })
+    });
 
 //product types
     let productTypesArray = generateProdTypes();
@@ -158,6 +146,11 @@ db.serialize(function(){
         db.run(`INSERT INTO paymentOptions VALUES (null, ${payObj.buyer_id}, '${payObj.payment_option_name}', ${payObj.account_number})`);
     });
 // orders
+    let orders = generateOrders();
+    orders.forEach((orderObj)  => {
+        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
+            ${orderObj.buyer_id})`);
+    });
 
 //departments
    let departmentsArr = generateDepartments();
@@ -168,10 +161,15 @@ db.serialize(function(){
 //employees
     let employeesArray = generateEmployees()
     employeesArray.forEach( (empObj) => {
-        db.run(`INSERT INTO employees VALUES (null, ${empObj.department}, '${empObj.first_name}', '${empObj.last_name}', '${empObj.hire_date}')`);
+        db.run(`INSERT INTO employees VALUES (null, ${empObj.department}, "${empObj.first_name}", "${empObj.last_name}", '${empObj.hire_date}')`);
     });
 //computers
 
 //training programs
+    let training = generateTraining();
+    training.forEach((trainingObj) => {
+        db.run(`INSERT INTO training (program_name, start_date, end_date, max_attendees) VALUES ("${trainingObj.program_name}", 
+            "${trainingObj.start_date}", "${trainingObj.end_date}", ${trainingObj.max_attendees})`);
+    });
 
 });
