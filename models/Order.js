@@ -8,7 +8,12 @@ let db = new sqlite3.Database('./db/bangazon.sqlite');
 module.exports ={
     getOrders:()=>{//method that returns a promise-- see .then in ordersCtrl
         return new Promise((resolve, reject)=>{
-            db.all(`SELECT * FROM orders`, (err, orderData)=>{
+            db.all(`SELECT * 
+                    FROM orders
+                    LEFT JOIN productOrders ON orders.order_id = productOrders.order_id 
+                    LEFT JOIN products ON products.product_id = productOrders.product_id
+                    `, (err, orderData)=>{
+                        console.log("order data", orderData);
                     if (err) return reject(err);//if error, pass on to error handler
                     resolve(orderData);
             });
