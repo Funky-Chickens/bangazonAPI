@@ -25,7 +25,7 @@ module.exports.getOneOrderById =(req, res, next)=>{
 module.exports.postOrder = (req, res, next) => {
     postOrderObj(req.body)
     .then((data) => {
-        res.status(200);
+        res.status(200).end('order posted sucessfully');
     })
     .catch((err)=>{
         next(err);
