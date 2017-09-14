@@ -73,9 +73,9 @@ These instructions will get the API up and running on your local machine for tes
   "phone": "437-034-6863",  
   "email": "Aliya_Rodriguez73@gmail.com"  
 }
-
-- To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
 - To access just one single user, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
+- To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
+- To `PUT`(or update) a user's information, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
 
 ### To access the 'products' resource
 - In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/products` (this will automatically get a list of products in JSON format).  It will be in the following format:
