@@ -15,7 +15,7 @@ router.get('/', (req, res)=>{
     res.json({
 	//list of routes as endpoint guidance for developers
     "users":"bangazonAPI/v1/users",
-    "orders":"bangazonAPI/v1/orders"
+    "orders":"bangazonAPI/v1/orders",
     "products":"bangazonAPI/v1/products",
     "paymentOptions":"bangazonAPI/v1/payments"
     //etc
