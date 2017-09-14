@@ -39,3 +39,12 @@ module.exports.replaceProductType = (req, res, next) => {
     })
     .catch( (err) => next(err));
 };
+
+//takes an ID and deletes corresponding product type
+module.exports.deleteProductType = ({params: {id}}, res, next) => {
+    deleteType(id)
+    .then( (data) => {
+        res.status(200).end();
+    })
+    .catch( (err) => next(err));
+};
