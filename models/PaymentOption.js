@@ -40,7 +40,6 @@ module.exports ={
 
     replacePayment:(id, pmtObj) =>{//same as payment object above with post, just replacing it
         //use id and payment object passed in to find object to replace and replace it with new values passed in in pmt object
-        console.log ("paymentObj?", pmtObj);
         return new Promise((resolve, reject)=>{
             db.run(`UPDATE paymentOptions
             SET payment_id = ${id}, buyer_id = ${pmtObj.buyer_id}, payment_option_name = "${pmtObj.payment_option_name}", account_number =${pmtObj.account_number}

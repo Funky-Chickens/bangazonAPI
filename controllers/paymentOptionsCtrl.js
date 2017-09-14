@@ -31,7 +31,6 @@ module.exports.postPmtOption = (req, res, next) => {
 
 //takes an ID and replaces the corresponding payment type
 module.exports.replacePaymentOption = (req, res, next) => {
-    console.log ("req.body");
     replacePayment(req.params.id, req.body)//id and object with payment info passed in here
     .then( (data) => {
         res.status(200).end();//new object posted
