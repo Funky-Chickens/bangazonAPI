@@ -18,9 +18,28 @@ module.exports = {
             });
         });
     },
-    addType: () => {
+    addType: (prodType) => {
         return new Promise( (resolve, reject) => {
-            db.post()
+            db.run(`INSERT INTO productTypes VALUES (null, "${prodType.label}")`, (err, pType) => {
+                if (err) return reject(err);
+                resolve(pType);
+            });
+        });
+    },
+    replaceType: (id, prodType) => {
+        return new Promise( (resolve, reject) => {
+            db.run(`UPDATE productTypes SET type_id = ${id}, label = "${prodType.label}" WHERE type_id = ${id}`, (err, pType) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        })
+    },
+    deleteType: (id) => {
+        return new Promise( (resolve, reject) => {
+            db.run(`DELETE FROM productTypes WHERE type_id = ${id}`, (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
         })
     }
 }
