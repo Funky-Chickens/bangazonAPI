@@ -2,6 +2,7 @@
 
 const { getAll, getOne, addType, replaceType } = require('../models/ProductType');
 
+//grabs all product types
 module.exports.getProductTypes = (req, res, next) => {
     getAll()
     .then( (prodTypes) => {
@@ -12,6 +13,7 @@ module.exports.getProductTypes = (req, res, next) => {
     });
 };
 
+//grabs a single producttype by product ID
 module.exports.getOneProductType = ({params: {id}}, res, next) => {
     getOne(id)
     .then( (prodType) => {
@@ -20,6 +22,7 @@ module.exports.getOneProductType = ({params: {id}}, res, next) => {
     .catch( (err) => next(err));
 };
 
+//posts a new product type
 module.exports.postProductType = (req, res, next) => {
     addType(req.body)
     .then( (data) => {
@@ -28,8 +31,8 @@ module.exports.postProductType = (req, res, next) => {
     .catch( (err) => next(err));
 };
 
+//takes an ID and replaces the corresponding product type
 module.exports.replaceProductType = (req, res, next) => {
-    console.log(req.params.id);
     replaceType(req.params.id, req.body)
     .then( (data) => {
         res.status(200).end();
