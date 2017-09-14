@@ -23,7 +23,6 @@ module.exports.getOneUserById =(req, res, next)=>{
 
 //MAKE SURE the dev sets POSTMAN to JSON not text.
 module.exports.postUser = (req, res, next) => {
-    console.log(req.body);
     postUserObj(req.body)
     .then((data) => {
         res.status(200);
@@ -33,5 +32,5 @@ module.exports.postUser = (req, res, next) => {
     })
 }
 
-//do module.exports for other methods here: POST PUT PATCH UPDATE DELETE if necessary
+//do module.exports for other methods here:  PUT  if necessary
 
