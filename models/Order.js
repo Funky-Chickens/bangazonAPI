@@ -46,11 +46,15 @@ module.exports ={
     },
 
     postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl
+        //must have a product id on it as well, for the join table.
         return new Promise((resolve, reject)=>{
-            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type} OR NULL, ${orderObj.buyer_id})`, (err, order)=>{
+            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", null, ${orderObj.buyer_id})`, 
+                function () {
+                    db.run(`INSERT INTO productOrders VALUES (${this.lastID}, ${orderObj.product_id}, null)`, (err, order) => {
                 if (err) return reject(err);
                 resolve(order);
                 });
+            })
         });
     },
 
@@ -65,6 +69,7 @@ module.exports ={
         });
     },
 
+//also especially for updating payment type to make the order complete!
     putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
             db.run(`DELETE FROM orders WHERE order_id=${id}`)
