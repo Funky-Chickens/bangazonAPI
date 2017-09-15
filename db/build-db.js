@@ -144,6 +144,11 @@ db.serialize( () => {
         db.run(`INSERT INTO employees VALUES (null, ${empObj.department}, "${empObj.first_name}", "${empObj.last_name}", '${empObj.hire_date}')`);
     });
 //computers
+
+let computer = generateComputers();
+computers.forEach((computerObj) => {
+    db.run(`INSERT INTO training VALUES (null, "${computerObj.purchase_date}", "${computerObj.decomission_date}")`);
+});
 //training programs
 
     let training = generateTraining();
