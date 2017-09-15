@@ -82,8 +82,8 @@ module.exports ={
     putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
             db.run(`UPDATE orders 
-                WHERE order_id = ${id};
-                SET order_date = "${orderObj.order_date}", payment_type = ${orderObj.payment_type}, buyer_id = ${orderObj.buyer_id}`
+                SET order_date = "${orderObj.order_date}", payment_type = ${orderObj.payment_type}, buyer_id = ${orderObj.buyer_id}
+                WHERE order_id = ${id}`
                 , (err, order)=>{
                 if (err) return reject(err);
                 resolve(order);
