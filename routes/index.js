@@ -17,7 +17,8 @@ router.get('/', (req, res)=>{
     "users":"bangazonAPI/v1/users",
     "orders":"bangazonAPI/v1/orders",
     "products":"bangazonAPI/v1/products",
-    "paymentOptions":"bangazonAPI/v1/payments"
+    "paymentOptions":"bangazonAPI/v1/payments",
+    "productOrders":"bangazonAPI/v1/productorder"
     //etc
     });
 });
