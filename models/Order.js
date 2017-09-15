@@ -50,7 +50,7 @@ module.exports ={
                 resolve(order);
                 });
         });
-    }
+    },
 
     deleteOneOrder:(id)=>{
         return new Promise((resolve, reject)=>{//select order by order id and delete a single order 
