@@ -45,12 +45,13 @@ module.exports ={
         });
     },
 
-    postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl
-        //must have a product id on it as well, for the join table.
+    postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl which must have a product id on it as well, for the join table
         return new Promise((resolve, reject)=>{
             db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", null, ${orderObj.buyer_id})`, 
-                function () {
-                    db.run(`INSERT INTO productOrders VALUES (${this.lastID}, ${orderObj.product_id}, null)`, (err, order) => {
+                function () { //have to use word "function" because of the "this"
+                //this db.run uses the property this.lastID which is able to get the PK from the row generated in the function for which this is a callback (the above). The null argument is for the PK of the line_item_id.
+                    db.run(`INSERT INTO productOrders VALUES (${this.lastID}, 
+                        ${orderObj.product_id}, null)`, (err, order) => {
                 if (err) return reject(err);
                 resolve(order);
                 });
