@@ -1,5 +1,5 @@
  'use strict'
-const{ getUsers, getOneUser, postUserObj, putUserObj, getUsersNoOrders } = require('../models/User'); //and whatever other methods exported
+const{ getUsers, getOneUser, postUserObj, putUserObj, doesUserHaveOrders } = require('../models/User'); //and whatever other methods exported
 
 module.exports.getAll = (req, res, next) => {
     getUsers()//from models folder
@@ -43,10 +43,11 @@ module.exports.putUser = (req, res, next) => {
     })
 }
 
-module.exports.getUsersWithNoOrders = (req, res, next) => {
+//checks to see if there is a query, and if that query has a property of active, if not, cascades to next route.
+module.exports.userOrdersCheck = (req, res, next) => {
     let queryBoolean = checkForQuery(req.query) ? true : false;
     if(queryBoolean && req.query.hasOwnProperty('active')) {
-        getUsersNoOrders(req.query)
+        doesUserHaveOrders(req.query)
         .then( (users) => {
             res.status(200).json(users);
         })

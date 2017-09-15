@@ -44,7 +44,7 @@ module.exports = {
                 });
         });
     },
-    getUsersNoOrders: (query) => {//method that returns a promise-- see .then in usersCtrl
+    doesUserHaveOrders: (query) => { //tests the query sent from the controller for a boolean and passes in proper SQL parameters
         let isNotNull = query.active === 'true' ? "NOT NULL GROUP BY user_id" : "IS NULL";
         return new Promise( (resolve, reject) => {
             db.all(`SELECT * FROM users
