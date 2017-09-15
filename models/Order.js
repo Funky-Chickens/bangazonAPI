@@ -1,4 +1,4 @@
- //delegate methods for querying database with promises here
+  //delegate methods for querying database with promises here
 
 'use strict';
 
@@ -37,15 +37,17 @@ module.exports ={
                 LEFT JOIN products ON products.product_id = productOrders.product_id
                 WHERE orders.order_id = ${id}
                 `, (err, order)=>{
+                    console.log(order);
                     if (err) return reject(err);
-                    resolve(formatOrder(order));
+                    if (order.length) resolve(formatOrder(order));
+                    else return reject("No such ID");
                 });
         });
     },
 
     postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl
         return new Promise((resolve, reject)=>{
-            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`, (err, order)=>{
+            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type} OR NULL, ${orderObj.buyer_id})`, (err, order)=>{
                 if (err) return reject(err);
                 resolve(order);
                 });
