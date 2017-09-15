@@ -50,6 +50,28 @@ module.exports ={
                 resolve(order);
                 });
         });
+    },
+
+    deleteOneOrder:(id)=>{
+        return new Promise((resolve, reject)=>{//select order by order id and delete a single order 
+            db.run(`DELETE 
+                FROM orders
+                WHERE order_id = ${id}`, (err, order)=>{
+                if (err) return reject(err);
+                resolve(order);
+                });
+        });
+    },
+
+    putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
+        return new Promise( (resolve, reject) => {
+            db.run(`DELETE FROM orders WHERE order_id=${id}`)
+            db.run(`INSERT INTO orders VALUES (${id}, "${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`
+                , (err, order)=>{
+                if (err) return reject(err);
+                resolve(order);
+                });
+        });
     }
 
 //post, put, patch, delete (whatever's required) also here for order
