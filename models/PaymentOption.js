@@ -36,8 +36,28 @@ module.exports ={
                 resolve(pmt);
                 });
         });
+    },
+
+    replacePayment:(id, pmtObj) =>{//same as payment object above with post, just replacing it
+        //use id and payment object passed in to find object to replace and replace it with new values passed in in pmt object
+        return new Promise((resolve, reject)=>{
+            db.run(`UPDATE paymentOptions
+            SET payment_id = ${id}, buyer_id = ${pmtObj.buyer_id}, payment_option_name = "${pmtObj.payment_option_name}", account_number =${pmtObj.account_number}
+            WHERE payment_id = ${id}`, (err, payment) => {
+                if (err) return reject(err);
+                resolve(payment);
+            });
+        })
+    },
+
+    deletePayment:(id) => {
+        return new Promise( (resolve, reject) => {
+            db.run(`DELETE FROM paymentOptions WHERE payment_id = ${id}`, (err) => {
+                if (err) return reject(err);
+                resolve();
+            });
+        })
     }
 
- // put, delete (whatever's required) also need to be done here
 
  }

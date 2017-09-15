@@ -5,7 +5,7 @@ require('dotenv').config();
 let bodyParser = require('body-parser');
 let routes = require('./routes/');
 
-
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next)=>{
@@ -25,9 +25,10 @@ app.use((req, res, next)=>{
 });
 
 app.use((err, req, res, next)=>{
+    console.log(err)
     res.status(err.status||500);
     res.json({
-	message:"A problem occurred.",
+    message:"A problem occurred.",
 	err:err
     })
 });
