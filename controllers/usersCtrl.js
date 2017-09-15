@@ -2,7 +2,6 @@
 const{ getUsers, getOneUser, postUserObj, putUserObj, getUsersNoOrders } = require('../models/User'); //and whatever other methods exported
 
 module.exports.getAll = (req, res, next) => {
-    console.log(req.query);
     getUsers()//from models folder
     .then( (users)=>{
         res.status(200).json(users);
@@ -47,7 +46,6 @@ module.exports.putUser = (req, res, next) => {
 module.exports.getUsersWithNoOrders = (req, res, next) => {
     let queryBoolean = checkForQuery(req.query) ? true : false;
     if(queryBoolean && req.query.hasOwnProperty('active')) {
-        console.log("yay");
         getUsersNoOrders(req.query)
         .then( (users) => {
             res.status(200).json(users);
