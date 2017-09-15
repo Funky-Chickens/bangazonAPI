@@ -1,4 +1,4 @@
- //delegate methods for querying database with promises here
+  //delegate methods for querying database with promises here
 
 'use strict';
 
@@ -38,18 +38,25 @@ module.exports ={
                 LEFT JOIN products ON products.product_id = productOrders.product_id
                 WHERE orders.order_id = ${id}
                 `, (err, order)=>{
+                    console.log(order);
                     if (err) return reject(err);
-                    resolve(formatOrder(order));
+                    if (order.length) resolve(formatOrder(order));
+                    else return reject("No such ID");
                 });
         });
     },
 
-    postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl
+    postOrderObj:(orderObj) => { //this orderObj is the req.body passed from the ordersCtrl which must have a product id on it as well, for the join table
         return new Promise((resolve, reject)=>{
-            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`, (err, order)=>{
+            db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", null, ${orderObj.buyer_id})`, 
+                function () { //have to use word "function" because of the "this"
+                //this db.run uses the property this.lastID which is able to get the PK from the row generated in the function for which this is a callback (the above). The null argument is for the PK of the line_item_id.
+                    db.run(`INSERT INTO productOrders VALUES (${this.lastID}, 
+                        ${orderObj.product_id}, null)`, (err, order) => {
                 if (err) return reject(err);
                 resolve(order);
-            });
+                });
+            })
         });
     },
 
@@ -71,6 +78,7 @@ module.exports ={
     },
 
 //updates an existing order in the order table
+//also especially for updating payment type to make the order complete!
     putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
             db.run(`UPDATE orders SET order_id = ${id}, order_date = "${orderObj.order_date}", payment_type = ${orderObj.payment_type}, buyer_id = ${orderObj.buyer_id}`
