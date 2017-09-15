@@ -6,6 +6,7 @@ let sqlite3 = require ('sqlite3').verbose();
 let db = new sqlite3.Database('./db/bangazon.sqlite');
 
 let formatOrder = (order) => {
+    // console.log("order", order);
     let formattedOrder = {
         "order_id": order[0].order_id,
         "order_date": order[0].order_date,
@@ -13,7 +14,7 @@ let formatOrder = (order) => {
         "products": []
     };
     order.forEach(orderItem => {
-        formattedOrder.products.push({"product_id": orderItem.product_id, "name": orderItem.product_name, "price": orderItem.price, "quantity": orderItem.quantity_avail});
+        formattedOrder.products.push({"product_id": orderItem.product_id, "name": orderItem.product_name, "price": orderItem.price, "quantity": orderItem.quantity_avail, "line_item_id": orderItem.line_item_id});
     })
     return formattedOrder
 }
@@ -57,8 +58,14 @@ module.exports ={
             db.run(`DELETE 
                 FROM orders
                 WHERE order_id = ${id}`, (err, order)=>{
-                if (err) return reject(err);
-                resolve(order);
+                    if (err) return reject(err);
+                    resolve(order);
+                });
+            db.run(`DELETE
+                FROM productOrders
+                WHERE order_id = ${id}`, (err, prodOrder) => {
+                    if (err) return reject(err);
+                    resolve(prodOrder);
                 });
         });
     },
@@ -72,7 +79,27 @@ module.exports ={
                 resolve(order);
                 });
         });
-    }
+    },
+
+    postProdOrderObj:(prodOrderObj) => { //this prodOrderObj is the req.body passed from the ordersCtrl
+        return new Promise((resolve, reject)=>{
+            db.run(`INSERT INTO productOrders VALUES (null, "${prodOrderObj.order_id}", ${prodOrderObj.product_id})`, (err, prodOrder)=>{
+                if (err) return reject(err);
+                resolve(prodOrder);
+                });
+        });
+    },
+
+    deleteOneProdOrder:(id)=>{
+        return new Promise((resolve, reject)=>{//select product order by product order id and delete a single product order 
+            db.run(`DELETE 
+                FROM productOrders
+                WHERE line_item_id = ${id}`, (err, prodOrder)=>{
+                if (err) return reject(err);
+                resolve(prodOrder);
+                });
+        });
+    },
 
 //post, put, patch, delete (whatever's required) also here for order
 //exporting methods with value of promises to be called and resolved in controller
