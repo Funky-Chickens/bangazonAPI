@@ -19,6 +19,32 @@ let formatOrder = (order) => {
     return formattedOrder
 }
 
+let deleteNoProdOrders = (id) => {
+        return new Promise((resolve, reject)=>{
+            db.get(`SELECT order_id FROM productOrders WHERE line_item_id = ${id}`, (err, lineId)=> {
+                if (err) return reject(err);
+                db.all(`SELECT * 
+                    FROM productOrders
+                    WHERE order_id = ${lineId.order_id}
+                    `, (err, orderData)=>{
+                    if (err) return reject(err);//if error, pass on to error handler
+                    if (orderData.length < 2) {
+                        let deleteOrderId = parseInt(orderData[0].order_id)
+                        console.log("orderData", deleteOrderId);
+                        db.run(`DELETE 
+                        FROM orders
+                        WHERE order_id = deleteOrderId`, (err, order)=>{
+                            if (err) return reject(err);
+                            resolve(order);
+                        });
+                            }
+                            resolve(orderData);
+                });
+            })
+            
+        })
+}
+
 module.exports ={
     getOrders:()=>{//method that returns a promise-- see .then in ordersCtrl
         return new Promise((resolve, reject)=>{
@@ -105,10 +131,12 @@ module.exports ={
 //deletes a line item from the productOrder join table using the line item id primary key. it does not effect the order table
     deleteOneProdOrder:(id)=>{
         return new Promise((resolve, reject)=>{//select product order by product order id and delete a single product order 
+            deleteNoProdOrders(id);
             db.run(`DELETE 
                 FROM productOrders
                 WHERE line_item_id = ${id}`, (err, prodOrder)=>{
                 if (err) return reject(err);
+                
                 resolve(prodOrder);
                 });
         });
