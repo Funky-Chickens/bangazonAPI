@@ -49,7 +49,7 @@ module.exports ={
             db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`, (err, order)=>{
                 if (err) return reject(err);
                 resolve(order);
-                });
+            });
         });
     },
 
@@ -60,16 +60,17 @@ module.exports ={
                 WHERE order_id = ${id}`, (err, order)=>{
                     if (err) return reject(err);
                     resolve(order);
-                });
+            });
             db.run(`DELETE
                 FROM productOrders
                 WHERE order_id = ${id}`, (err, prodOrder) => {
                     if (err) return reject(err);
                     resolve(prodOrder);
-                });
+            });
         });
     },
 
+//updates an existing order in the order table
     putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
             db.run(`DELETE FROM orders WHERE order_id=${id}`)
@@ -81,15 +82,19 @@ module.exports ={
         });
     },
 
+//this function posts to the productOrder join table with an order id and product id, it does not effect the order table
     postProdOrderObj:(prodOrderObj) => { //this prodOrderObj is the req.body passed from the ordersCtrl
+            console.log("why?", prodOrderObj);
         return new Promise((resolve, reject)=>{
-            db.run(`INSERT INTO productOrders VALUES (null, "${prodOrderObj.order_id}", ${prodOrderObj.product_id})`, (err, prodOrder)=>{
+            db.run(`INSERT INTO productOrders VALUES (${prodOrderObj.order_id}, ${prodOrderObj.product_id}, null)`
+                , (err, prodOrder)=>{
                 if (err) return reject(err);
                 resolve(prodOrder);
                 });
         });
     },
 
+//deletes a line item from the productOrder join table using the line item id primary key. it does not effect the order table
     deleteOneProdOrder:(id)=>{
         return new Promise((resolve, reject)=>{//select product order by product order id and delete a single product order 
             db.run(`DELETE 

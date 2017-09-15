@@ -21,7 +21,7 @@ app.use(`/bangazonAPI/v1/`, routes); //require in routes so it will look in inde
 app.use((req, res, next)=>{
     let error = new Error('sorry, not found.');
     error.status = 404;
-    next(err);
+    next(error);
 });
 
 app.use((err, req, res, next)=>{

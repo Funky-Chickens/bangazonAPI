@@ -51,6 +51,7 @@ module.exports.deleteOneOrder = ({params: {id}}, res, next) => {
 };
 
 module.exports.postProdOrder = (req, res, next) => {
+        console.log("whyyyyyy?", req);
     postProdOrderObj(req.body)
     .then((data) => {
         res.status(200).end('product order posted sucessfully');
