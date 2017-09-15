@@ -73,8 +73,7 @@ module.exports ={
 //updates an existing order in the order table
     putOrder:(id, orderObj) => { //need whole orderObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
-            db.run(`DELETE FROM orders WHERE order_id=${id}`)
-            db.run(`INSERT INTO orders VALUES (${id}, "${orderObj.order_date}", ${orderObj.payment_type}, ${orderObj.buyer_id})`
+            db.run(`UPDATE orders SET order_id = ${id}, order_date = "${orderObj.order_date}", payment_type = ${orderObj.payment_type}, buyer_id = ${orderObj.buyer_id}`
                 , (err, order)=>{
                 if (err) return reject(err);
                 resolve(order);
@@ -84,7 +83,6 @@ module.exports ={
 
 //this function posts to the productOrder join table with an order id and product id, it does not effect the order table
     postProdOrderObj:(prodOrderObj) => { //this prodOrderObj is the req.body passed from the ordersCtrl
-            console.log("why?", prodOrderObj);
         return new Promise((resolve, reject)=>{
             db.run(`INSERT INTO productOrders VALUES (${prodOrderObj.order_id}, ${prodOrderObj.product_id}, null)`
                 , (err, prodOrder)=>{
