@@ -41,5 +41,17 @@ module.exports = {
                 resolve();
             });
         })
+    },
+    productTypeMatch:()=>{
+        return new Promise((resolve, reject)=>{
+            //if product_type_id exists inside products, don't delete the product type
+            db.all(`SELECT *
+            FROM productTypes
+            LEFT JOIN products
+            ON productTypes.type_id = products.product_type_id`, (err, data)=>{
+                if (err) return reject(err);
+                resolve(data);//list of all products matched with product types based on type_id
+            });
+        })
     }
 }

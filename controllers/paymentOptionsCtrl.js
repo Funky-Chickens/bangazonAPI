@@ -2,7 +2,7 @@
 
 //export getAllPmtOptions, getOnePmtOptionById, postPmtOption
 //require in models files for payment options
-const{getPayments, getOnePayment, postPayment, replacePayment, deletePayment}= require('../models/PaymentOption'); //and whatever other methods exported
+const{getPayments, getOnePayment, postPayment, replacePayment, deletePayment, paymentTypeMatch}= require('../models/PaymentOption'); //and whatever other methods exported
 
 module.exports.getAllPmtOptions=(req, res, next)=>{
     getPayments()//from models folder
@@ -38,13 +38,29 @@ module.exports.replacePaymentOption = (req, res, next) => {
     .catch( (err) => next(err));
 };
 
-//takes an ID and deletes corresponding payment type
+//deletes a specific payment option as long as that option doesn't exist as a property on an order
 module.exports.deletePaymentOption = ({params: {id}}, res, next) => {
-    deletePayment(id)
-    .then( () => {
-        res.status(200).end();
+    paymentTypeMatch()//look for payment option match using paymentoption model function
+    .then( (data) => { //data comes back as array - filter to get the ones that have a null payment type
+        data.filter( (pmtTypeObj) => {
+            if (pmtTypeObj.payment_type === null){
+                return pmtTypeObj;  //return the objects that have pmt type of null in orders table
+            }
+        }).map( (obj) => {//map through and return the id numbers of what we can delete from paymentOptions table
+            return obj.payment_id;
+        }).forEach( (num) => {
+            if(num == id){ //if number = id, delete payment option
+                deletePayment(+id)//change id into number
+                .then( () => {
+                    res.end(); //res.status(200).end();  ?
+                })
+            }
+        })
+        res.end();//res.status(200).end();  ?
     })
-    .catch( (err) => next(err));
+    .catch((err)=>{
+        next(err);
+    });
+
 };
-//do module.exports for other methods here:  PUT & DELETE
 
