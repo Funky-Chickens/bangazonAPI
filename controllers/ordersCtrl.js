@@ -60,8 +60,8 @@ module.exports.deleteOneProdOrder = ({params: {id}}, res, next) => {
 
 module.exports.getOrdersByUser = ({params: {uid}}, res, next) => {
     getUsersOrders(uid)
-    .then( () => {
-        res.status(200).end();
+    .then( (data) => {
+        res.status(200).json(data).end();
     })
     .catch( (err) => next(err));
 };

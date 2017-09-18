@@ -109,7 +109,15 @@ module.exports = {
             });
         });
     },
+//returns all orders from the specified user
+    getUsersOrders:(uid) => {
+        return new Promise( (resolve, reject) => {
+            db.all(`SELECT * 
+            FROM orders 
+            WHERE buyer_id = ${uid}`, (err, usersOrders) => {
+                if (err) return reject(err);
+                resolve(usersOrders);
+            });
+        });
+    }
 }
-
-//post, put, patch, delete (whatever's required) also here for order
-//exporting methods with value of promises to be called and resolved in controller
