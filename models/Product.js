@@ -65,7 +65,6 @@ module.exports ={
                WHERE p.product_id = po.product_id
             )`, (err, data)=>{
                 if (err) return reject(err);
-                console.log(data);
                 resolve(data);//list of all products matched with product types based on type_id
 
             });
