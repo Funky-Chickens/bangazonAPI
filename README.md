@@ -51,12 +51,14 @@ These instructions will get the API up and running on your local machine for tes
 - express
 - body-parse
 - dotenv
+_______________________________________________
 
 ## To use the API
 - Clone this repo into a directory of your choice
 - Run `npm install` to install dependencies
 - `npm run db:reset` in the command line to create and populate your database
 - `npm start` on the command line to run the server and allow access
+_______________________________________________
 
 ### To access the 'users' resource
 - In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/users` (this will automatically get a list of users in JSON format).  It will be an array of users in the following format (one user shown):  
@@ -76,20 +78,20 @@ These instructions will get the API up and running on your local machine for tes
 - To access just one single user, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
 - To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
 - To `PUT`(or update) a user's information, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
+______________________________________________
 
 ### To access the 'products' resource
 To test:
 - run ```npm run db:reset``` to create the database
 - run ```npm start``` 
 - open up a browser window to use with testing the "gets" below
-______________________________________________
+  
 - test get all product by entering this url:
     localhost:8080/bangazonAPI/v1/products
-
-_______________________________________________
+  
 - test get one product by entering this url:
     localhost:8080/bangazonAPI/v1/products/[id](product id you want to find)
-_______________________________________________
+  
 - open POSTMAN app in chrome
 - set it to DELETE
 - test deleting one product by entering this url:
@@ -97,7 +99,7 @@ _______________________________________________
 - send request
 - check database to see if item in database was deleted
 
-_______________________________________________
+   
 - open POSTMAN app in chrome
 - set it to POST
 - test post a product by entering this url:
@@ -107,7 +109,7 @@ _______________________________________________
    post
 - send request
 - check database for information entered
-_______________________________________________
+  
 - open POSTMAN app in chrome
 - set it to PUT
 - test put a product by entering this url:
@@ -118,8 +120,3 @@ _______________________________________________
 - make sure there is no ID
 - send request
 - check database for information entered
-
-Refer to issue #2
-
-
-
