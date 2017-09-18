@@ -48,7 +48,6 @@ module.exports.putProduct = (req, res, next) => {
 }
 
 module.exports.deleteAProduct = ({params: {id}}, res, next) => {
-    console.log(id);
     productMatch()//look for productType match
     .then( (data) => { //data comes back as array - filter out
         data.map( (obj) => {//map through and return the type id numbers of the ones we can delete
