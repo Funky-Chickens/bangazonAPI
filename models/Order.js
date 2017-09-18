@@ -89,7 +89,6 @@ module.exports = {
             db.run(`DELETE 
                 FROM orders
                 WHERE order_id = ${id} AND payment_type IS NULL`, function(err) {
-                    console.log("this changes", this.changes);
                     if (err) return reject(err);
                     resolve(this.changes);
             });
