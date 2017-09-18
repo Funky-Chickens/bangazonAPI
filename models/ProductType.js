@@ -43,7 +43,7 @@ module.exports = {
         })
     },
     productTypeMatch:()=>{
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
             //if product_type_id exists inside products, don't delete the product type
             db.all(`SELECT *
             FROM productTypes

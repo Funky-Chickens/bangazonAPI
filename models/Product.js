@@ -53,6 +53,23 @@ module.exports ={
                 resolve(product);
                 });
         });
+    },
+
+    productMatch:() => {
+        return new Promise((resolve, reject)=>{
+            //if product_type_id exists inside products, don't delete the product type
+            db.all(`SELECT * FROM products as p
+            WHERE NOT EXISTS
+            (
+               SELECT * FROM productOrders as po
+               WHERE p.product_id = po.product_id
+            )`, (err, data)=>{
+                if (err) return reject(err);
+                console.log(data);
+                resolve(data);//list of all products matched with product types based on type_id
+
+            });
+        });
     }
 
 //post, put, patch, delete (whatever's required) also here for user

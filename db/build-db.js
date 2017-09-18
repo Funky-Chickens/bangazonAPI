@@ -8,6 +8,7 @@ const { generateDepartments } = require('./departments-db.js');
 //faker data
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
+const { generateComputers } = require('./computers-db')
 db.serialize( () => {
 
     db.run(`DROP TABLE IF EXISTS users`);
@@ -146,9 +147,10 @@ db.serialize( () => {
 //computers
 
 let computer = generateComputers();
-computers.forEach((computerObj) => {
-    db.run(`INSERT INTO training VALUES (null, "${computerObj.purchase_date}", "${computerObj.decomission_date}")`);
+computer.forEach((computerObj) => {
+    db.run(`INSERT INTO computers VALUES (null, "${computerObj.purchase_date}", "${computerObj.decomission_date}")`);
 });
+
 //training programs
 
     let training = generateTraining();
