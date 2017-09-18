@@ -46,9 +46,14 @@ module.exports ={
 
     putProduct:(id, prodObj) => { //need whole userObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
-            db.run(`DELETE FROM products WHERE product_id=${id}`)
-            db.run(`INSERT INTO products VALUES (${id}, ${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.product_name}", 
-            "${prodObj.description}", ${prodObj.quantity_avail}, ${prodObj.price})`, (err, product)=>{
+            db.run(`UPDATE products SET 
+                    type_id = ${prodObj.type_id}, 
+                    seller_id = ${prodObj.seller_id}, 
+                    product_name = "${prodObj.product_name}", 
+                    description = "${prodObj.description}", 
+                    quantity_avail = ${prodObj.quantity_avail}, 
+                    price = ${prodObj.price} 
+                    WHERE product_id = ${id}`, (err, product)=>{
                 if (err) return reject(err);
                 resolve(product);
                 });
