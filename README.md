@@ -61,6 +61,8 @@ _______________________________________________
 _______________________________________________
 
 ### To access the 'users' resource
+
+#### GET
 - In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/users` (this will automatically get a list of users in JSON format).  It will be an array of users in the following format (one user shown):  
 {  
   "user_id": 3,  
@@ -75,10 +77,17 @@ _______________________________________________
   "phone": "437-034-6863",  
   "email": "Aliya_Rodriguez73@gmail.com"  
 }
+
+#### GET one
 - To access just one single user, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
+
+#### POST
 - To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
+
+#### PUT
 - To `PUT`(or update) a user's information, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
-______________________________________________
+
+_____________________________________________
 
 ### To access the 'products' resource
 - run ```npm run db:reset``` to create the database
@@ -98,7 +107,6 @@ ______________________________________________
 - test deleting one product by entering this url:
     localhost:8080/bangazonAPI/v1/products/[id](product id you want to delete)
 - send request
-- check database to see if item in database was deleted
 
 #### POST
 - open POSTMAN app in chrome
@@ -109,7 +117,6 @@ ______________________________________________
 - insert an object to post with the properties listed in the database and the information you wish to 
    post
 - send request
-- check database for information entered
 
 #### PUT
 - open POSTMAN app in chrome
@@ -121,4 +128,3 @@ ______________________________________________
    post
 - make sure there is no ID
 - send request
-- check database for information entered
