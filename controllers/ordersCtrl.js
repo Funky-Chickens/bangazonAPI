@@ -68,5 +68,13 @@ module.exports.deleteOneProdOrder = ({params: {id}}, res, next) => {
     .catch( (err) => next(err));
 };
 
+module.exports.getOrdersByUser = ({params: {uid}}, res, next) => {
+    getUserOrders(uid)
+    .then( () => {
+        res.status(200).end();
+    })
+    .catch( (err) => next(err));
+};
+
 //do module.exports for other methods here:  PUT  if necessary
 
