@@ -19,7 +19,7 @@ module.exports.generateProdTypes = () => {
 module.exports.generateProducts = () => {
   let products = [];
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 10; i++) {
     let description = faker.random.words();
     let price = faker.commerce.price();
     let name = faker.commerce.productName();

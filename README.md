@@ -118,8 +118,11 @@ _______________________________________________
 - make sure there is no ID
 - send request
 - check database for information entered
-
-Refer to issue #2
+_______________________________________________
+- GET: users with orders:
+- http://localhost:8080/bangazonAPI/v1/users?active=true
+- GET: users with no orders:
+- http://localhost:8080/bangazonAPI/v1/users?active=false
 
 
 
