@@ -130,7 +130,7 @@ _____________________________________________
 - send request
 - check database for information entered
 
-#To access the "orders" resource
+## To access the "orders" resource
 - In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/orders` (this will automatically get a list of orders in JSON format).  It will be an array of orders in the following format (one orer shown): 
 {  
   "order_id": 3,  
@@ -149,9 +149,9 @@ _____________________________________________
   "product_id": 11
 }
 - To `PUT`(or update) an order's information , go to `localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
--To 'DELETE' an order, go to 'localhost:8080/bangazonAPI/v1/orders/[unique_order_id}', set Postman to "DELETE". This will also delete all of the product-order relationships.
--To 'DELETE' a product from an order, access the single order to see the line_item_id for that product. Go to 'localhost:/bangazonAPI/v1/productorders/[line_item_id}', set Postman to 'DELETE'.
--To 'POST' (i.e.. add) a product to an existing order, go to 'localhost:/8080/bangazonAPI/v1/productorders', set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object in the following format and send.
+- To 'DELETE' an order, go to 'localhost:8080/bangazonAPI/v1/orders/[unique_order_id}', set Postman to "DELETE". This will also delete all of the product-order relationships.
+- To 'DELETE' a product from an order, access the single order to see the line_item_id for that product. Go to 'localhost:/bangazonAPI/v1/productorders/[line_item_id}', set Postman to 'DELETE'.
+- To 'POST' (i.e.. add) a product to an existing order, go to 'localhost:/8080/bangazonAPI/v1/productorders', set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object in the following format and send.
 {    
   "order_id": 27,  
   "product_id":6  
