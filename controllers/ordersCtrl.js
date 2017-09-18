@@ -7,8 +7,7 @@ module.exports.getAll=(req, res, next)=>{
         res.status(200).json(orders);
     })
     .catch( (err) => next(err));
-    })
-};
+}
 
 module.exports.getOneOrderById =(req, res, next)=>{
     getOneOrder(req.params.id)//method from User.js
@@ -60,7 +59,7 @@ module.exports.deleteOneProdOrder = ({params: {id}}, res, next) => {
 };
 
 module.exports.getOrdersByUser = ({params: {uid}}, res, next) => {
-    getUserOrders(uid)
+    getUsersOrders(uid)
     .then( () => {
         res.status(200).end();
     })
