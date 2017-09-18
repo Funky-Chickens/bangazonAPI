@@ -8,13 +8,6 @@
 - weed out commented-out code and console logs
 - add comments to explain confusing code
 
-
-## Template for PR comments:  
-### I made the following changes:  
-- change  
-- reason
-
-
 ### Steps to test:
 - System config (if different)
 - Added 3rd party libraries (if added)
