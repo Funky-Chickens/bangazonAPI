@@ -19,7 +19,8 @@ _______________________________________________
 _______________________________________________
 ### To access the 'users' resource
 #### GET
-- In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/users` (this will automatically get a list of users in JSON format).  It will be an array of users in the following format (one user shown):
+- `http://localhost:8080/bangazonAPI/v1/users` 
+- Returns all user data in this format:
 {
   "user_id": 3,
   "first_name": "Joana",
@@ -34,87 +35,84 @@ _______________________________________________
   "email": "Aliya_Rodriguez73@gmail.com"
 }
 #### GET one
-- To access just one single user, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
+- `http://localhost:8080/bangazonAPI/v1/users/[unique_user_id]`
+- Returns a single user by their unique user id
 #### POST
-- To `POST` to users, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
+- `http://localhost:8080/bangazonAPI/v1/users`
+- Takes a JSON object in the format specified above
 #### PUT
-- To `PUT`(or update) a user's information, go to `localhost:8080/bangazonAPI/v1/users/[unique_user_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
+- `localhost:8080/bangazonAPI/v1/users/[unique_user_id]` 
+- Updates a user's information, takes a JSON object in the format specified above.
 #### GET all users with or without orders
-- GET: users with orders:
-- http://localhost:8080/bangazonAPI/v1/users?active=true
-- GET: users with no orders:
-- http://localhost:8080/bangazonAPI/v1/users?active=false
+- `http://localhost:8080/bangazonAPI/v1/users?active=true`
+- Returns users with orders.
+- `http://localhost:8080/bangazonAPI/v1/users?active=false`
+- Returns users with no orders.
 _____________________________________________
 ### To access the 'products' resource
-- run ```npm run db:reset``` to create the database
-- run ```npm start```
-- open up a browser window to use with testing the "gets" below
 #### GET all
-- test get all product by entering this url:
-    localhost:8080/bangazonAPI/v1/products
+- `http://localhost:8080/bangazonAPI/v1/products`
+- Returns all products in the following format:
+{
+    "product_id": 5,
+    "type_id": 6,
+    "seller_id": 8,
+    "product_name": "Rubber Balloon Underwear",
+    "description": "Stretchy underwear that can be inflated, and doubles as a life preserver",
+    "quantity_avail": 4,
+    "price": 277
+}
 #### GET one
-- test get one product by entering this url:
-    localhost:8080/bangazonAPI/v1/products/[id](product id you want to find)
+- `http://localhost:8080/bangazonAPI/v1/products/[unique_product_id]`
+-Returns one product by its unique product id.
 #### DELETE
-- open POSTMAN app in chrome
-- set it to DELETE
-- test deleting one product by entering this url:
-    localhost:8080/bangazonAPI/v1/products/[id](product id you want to delete)
-- send request
+- `http://localhost:8080/bangazonAPI/v1/products/[unique_product_id]`
+- Deletes one product by its unique product id.
 #### POST
-- open POSTMAN app in chrome
-- set it to POST
-- test post a product by entering this url:
-   localhost:8080/bangazonAPI/v1/products
-- make sure to set the body to JSON format
-- insert an object to post with the properties listed in the database and the information you wish to
-   post
-- send request
+- `http://localhost:8080/bangazonAPI/v1/products`
+- Takes a JSON object in the format specified above.
 #### PUT
-- open POSTMAN app in chrome
-- set it to PUT
-- put a product by entering this url:
-   localhost:8080/bangazonAPI/v1/products/[id](product id you want to edit)
-- make sure to set the body to JSON format
-- insert an object to post with the properties listed in the database and the information you wish to
-   post
-- make sure there is no ID
-- send request
+- `http://localhost:8080/bangazonAPI/v1/products/[unique_product_id]`
+- Takes a JSON object in the format specified above.
 _________________________________________
 ## To access the "orders" resource
-- In either your browser or Postman, go to `localhost:8080/bangazonAPI/v1/orders` (this will automatically get a list of orders in JSON format).  It will be an array of orders in the following format (one orer shown): 
+#### GET all
+- `http://localhost:8080/bangazonAPI/v1/orders`
+- Returns all products in the following format:
 {  
   "order_id": 3,  
   "order_date": "Wed Apr 12 2017 13:21:28 GMT-0500 (Central Daylight Time)",  
   "payment_type": 4,  
   "buyer_id": 15
 }
-- To access just one single order and view the products on the order, go to `localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`
-- To `POST` to orders, set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object and send.
-  The JSON format is as follows:
-  {    
-  "order_date": "Wed Apr 12 2017 13:21:28 GMT-0500 (Central Daylight Time)",  
-  "payment_type": 4,  
-  "buyer_id": 15,
-  "product_id": 11
-}
-- To `PUT`(or update) an order's information , go to `localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`, set Postman to "PUT" and set the body to raw, type to JSON. Input your updated JSON object and send.
-- To 'DELETE' an order, go to 'localhost:8080/bangazonAPI/v1/orders/[unique_order_id}', set Postman to "DELETE". This will also delete all of the product-order relationships.
-- To 'DELETE' a product from an order, access the single order to see the line_item_id for that product. Go to 'localhost:/bangazonAPI/v1/productorders/[line_item_id}', set Postman to 'DELETE'.
-- To 'POST' (i.e.. add) a product to an existing order, go to 'localhost:/8080/bangazonAPI/v1/productorders', set Postman to "POST" and set the body to raw, type to JSON. Input your JSON object in the following format and send.
+#### GET one
+- `http://localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`
+- Returns one order by the unique order id.
+#### POST
+- `http://localhost:8080/bangazonAPI/v1/orders`
+- Takes a JSON object in the format specified above.
+#### PUT
+- `http://localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`
+- Takes a JSON object in the format specified above.
+#### DELETE
+- `http://localhost:8080/bangazonAPI/v1/orders/[unique_order_id]`
+- Deletes an order by its unique order id.
+#### DELETE a product from an order
+- `http://localhost:/bangazonAPI/v1/productorders/[line_item_id]`
+- access the single order to see the line_item_id for that product.
+- deletes a product from an order using the line item id.
+
+- `http://localhost:/8080/bangazonAPI/v1/productorders`
+- Posts a product to an existing order. Use the following format:
 {    
   "order_id": 27,  
   "product_id":6  
 }
 __________________________________________
 ### To access the 'Payment Options' resource
-- run ```npm run db:reset``` to create the database
-- run ```npm start```
-- open up a browser window to use with testing the "gets" below
 #### GET all
-- test get all payment options by entering this url:
-    localhost:8080/bangazonAPI/v1/payments
-- This should return an array of payment option objects in the following format:
+- `http://localhost:8080/bangazonAPI/v1/payments`
+- Returns all payment options in the following format:
 {
     "payment_id": 1,
     "buyer_id": 20,
@@ -122,31 +120,14 @@ __________________________________________
     "account_number": 98420832
 }
 #### GET one
-- test get one payment option by entering this url:
-    localhost:8080/bangazonAPI/v1/payments/[id](payment id you want to find)
+- `http://localhost:8080/bangazonAPI/v1/payments/[unique_payment_id]`
+- Returns a payment type by its unique payment id.
 #### DELETE
-- open POSTMAN app in chrome
-- set it to DELETE
-- test deleting one payment option by entering this url:
-    localhost:8080/bangazonAPI/v1/payments/[id](payment id you want to delete)
-- make sure to set the body to JSON format
-- send request
+- `http://localhost:8080/bangazonAPI/v1/payments/[unique_payment_id]`
+- Deletes a payment type using its unique payment id.
 #### POST
-- open POSTMAN app in chrome
-- set it to POST
-- test post a payment option by entering this url:
-   localhost:8080/bangazonAPI/v1/payments
-- make sure to set the body to JSON format
-- insert an object to post with the properties listed in the database and the information you wish to
-   post (see above - payment_id not required in object to post, since it will be auto-incremented)
-- send request
+- `http://localhost:8080/bangazonAPI/v1/payments`
+- Takes a JSON object in the format specified above.
 #### PUT
-- open POSTMAN app in chrome
-- set it to PUT
-- put a payment option by entering this url:
-   localhost:8080/bangazonAPI/v1/payments/[id](payment id you want to edit)
-- make sure to set the body to JSON format
-- insert an object to post with the properties listed in the database and the information you wish to
-   post
-- make sure there is no ID
-- send request
+- `http://localhost:8080/bangazonAPI/v1/payments/[unique_payment_id]`
+- Takes a JSON object in the format specified above.
