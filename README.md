@@ -81,17 +81,18 @@ _______________________________________________
 ______________________________________________
 
 ### To access the 'products' resource
-To test:
 - run ```npm run db:reset``` to create the database
 - run ```npm start``` 
 - open up a browser window to use with testing the "gets" below
-  
+#### GET all
 - test get all product by entering this url:
     localhost:8080/bangazonAPI/v1/products
-  
+    
+#### GET one
 - test get one product by entering this url:
     localhost:8080/bangazonAPI/v1/products/[id](product id you want to find)
-  
+    
+#### DELETE
 - open POSTMAN app in chrome
 - set it to DELETE
 - test deleting one product by entering this url:
@@ -99,7 +100,7 @@ To test:
 - send request
 - check database to see if item in database was deleted
 
-   
+#### POST
 - open POSTMAN app in chrome
 - set it to POST
 - test post a product by entering this url:
@@ -109,10 +110,11 @@ To test:
    post
 - send request
 - check database for information entered
-  
+
+#### PUT
 - open POSTMAN app in chrome
 - set it to PUT
-- test put a product by entering this url:
+- put a product by entering this url:
    localhost:8080/bangazonAPI/v1/products/[id](product id you want to edit)
 - make sure to set the body to JSON format
 - insert an object to post with the properties listed in the database and the information you wish to 
