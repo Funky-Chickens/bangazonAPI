@@ -17,9 +17,36 @@ let formatOrder = (order) => {
     return formattedOrder
 }
 
+let deleteNoProdOrders = (id) => {
+        return new Promise((resolve, reject)=>{
+            db.all(`SELECT * FROM productOrders WHERE line_item_id = ${id}`, (err, lineId)=> {
+                if (err) return reject(err);
+                if (lineId[0]) {
+                db.all(`SELECT * FROM productOrders WHERE order_id = ${lineId[0].order_id}
+                    `, (err, orderData)=>{
+                    if (err) return reject(err);//if error, pass on to error handler
+                    if (orderData.length < 1) {
+                        let deleteOrderId = parseInt(lineId[0].order_id)
+                        db.run(`DELETE FROM orders WHERE order_id = ${deleteOrderId}`, (err, order)=>{
+                            if (err) return reject(err);
+                        });
+                            }
+                            else {
+                                resolve("ELSE");
+                            }
+                    });
+                }
+            })
+            resolve();
+      
+        })
+}
+
+
 module.exports = {
     getOrders:() => {//method that returns a promise-- see .then in ordersCtrl
         return new Promise( (resolve, reject) => {
+
             db.all(`SELECT * 
                     FROM orders`, (err, orderData) => {
                     if (err) return reject(err);//if error, pass on to error handler
@@ -98,15 +125,19 @@ module.exports = {
         });
     },
 
-//deletes a line item from the productOrder join table using the line item id primary key. it does not effect the order table
+//deletes a line item from the productOrder join table using the line item id primary key. it does not affect the order table
     deleteOneProdOrder:(id) => {
         return new Promise( (resolve, reject) => {//select product order by product order id and delete a single product order 
+            deleteNoProdOrders(id) //this checks to make sure the order has other products still on it -- if not, it deletes the order. This helper function is defined above near line 22.
+            .then ( (data) => {
             db.run(`DELETE 
                 FROM productOrders
                 WHERE line_item_id = ${id}`, (err, prodOrder) => {
                 if (err) return reject(err);
                 resolve(prodOrder);
-            });
+                });
+            })
+
         });
     },
 //returns all orders from the specified user
