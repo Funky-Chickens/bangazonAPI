@@ -37,8 +37,18 @@ module.exports = {
 
     putUserObj: (id, userObj) => { //need whole userObj, but use the passed in ID from the req.params in order to access that number even after the object has been deleted from the DB
         return new Promise( (resolve, reject) => {
-            db.run(`DELETE FROM users WHERE user_id=${id}`)
-            db.run(`INSERT INTO users VALUES (${id}, "${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`, (err, user)=>{
+            db.run(`UPDATE users SET
+                first_name = "${userObj.first_name}", 
+                last_name = "${userObj.last_name}", 
+                start_date = "${userObj.start_date}", 
+                last_login = "${userObj.last_login}",
+                street_address = "${userObj.street_address}",
+                city = "${userObj.city}", 
+                state = "${userObj.state}",
+                postal_code = ${userObj.postal_code}, 
+                phone = "${userObj.phone}", 
+                email = "${userObj.email}"
+                WHERE user_id=${id}`, (err, user)=>{
                 if (err) return reject(err);
                 resolve(user);
                 });

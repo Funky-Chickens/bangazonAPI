@@ -57,6 +57,18 @@ module.exports ={
                 resolve();
             });
         })
+    },
+    paymentTypeMatch:()=>{
+        return new Promise((resolve, reject)=>{
+            //if payment option exists inside orders, don't delete the payment type
+            db.all(`SELECT *
+            FROM paymentOptions
+            LEFT JOIN orders
+            ON paymentOptions.payment_id = orders.payment_type`, (err, data)=>{
+                if (err) return reject(err);
+                resolve(data);//list of all orders matched with payment types
+            });
+        })
     }
 
 

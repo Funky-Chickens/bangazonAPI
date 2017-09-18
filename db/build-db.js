@@ -73,7 +73,7 @@ db.serialize( () => {
     )`);
     db.run(`CREATE TABLE IF NOT EXISTS products(
         product_id INTEGER PRIMARY KEY NOT NULL,
-        type_id INTEGER NOT NULL,
+        product_type_id INTEGER NOT NULL,
         seller_id INTEGER NOT NULL,
         product_name TEXT NOT NULL,
         description TEXT NOT NULL,
@@ -118,7 +118,7 @@ db.serialize( () => {
 // products
     let productsArray = generateProducts();
     productsArray.forEach( (prodObj) => {
-        db.run(`INSERT INTO products (type_id, seller_id, product_name, description, quantity_avail, price) VALUES (${prodObj.type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
+        db.run(`INSERT INTO products VALUES (null, ${prodObj.product_type_id}, ${prodObj.seller_id}, "${prodObj.name}", "${prodObj.description}", ${prodObj.quantity}, ${prodObj.price})`);
     });
 // payment_types
     let paymentOptsArray = generatePaymentOptions();

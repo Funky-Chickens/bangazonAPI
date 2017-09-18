@@ -8,7 +8,7 @@ module.exports.generateProdTypes = () => {
 
   for (let i = 0; i < 12; i++) {
     let label = faker.commerce.department();
-    
+
     prodTypes.push({
       label
     });
@@ -19,12 +19,12 @@ module.exports.generateProdTypes = () => {
 module.exports.generateProducts = () => {
   let products = [];
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 10; i++) {
     let description = faker.random.words();
     let price = faker.commerce.price();
     let name = faker.commerce.productName();
     let quantity = faker.random.number();
-    let type_id = i%12 + 1;
+    let product_type_id = i%12 + 1;
     let seller_id = faker.random.number();
 
 
@@ -33,7 +33,7 @@ module.exports.generateProducts = () => {
       price,
       name,
       quantity,
-      type_id,
+      product_type_id,
       seller_id
     });
   }

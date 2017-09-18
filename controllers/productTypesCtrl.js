@@ -1,6 +1,6 @@
 'use strict';
 
-const { getAll, getOne, addType, replaceType, deleteType } = require('../models/ProductType');
+const { getAll, getOne, addType, replaceType, deleteType, productTypeMatch } = require('../models/ProductType');
 
 //grabs all product types
 module.exports.getProductTypes = (req, res, next) => {
@@ -40,11 +40,29 @@ module.exports.replaceProductType = (req, res, next) => {
     .catch( (err) => next(err));
 };
 
-//takes an ID and deletes corresponding product type
+//deletes a specific product type as long as that type doesn't exist as a property on a product
 module.exports.deleteAProductType = ({params: {id}}, res, next) => {
-    deleteType(id)
-    .then( () => {
-        res.status(200).end();
+    productTypeMatch()//look for productType match
+    .then( (data) => { //data comes back as array - filter out
+        data.filter( (prodTypeObj) => {
+            if (prodTypeObj.product_type_id === null){
+                return prodTypeObj;  //return the objects that have product_type_id of null
+            }
+        }).map( (obj) => {//map through and return the type id numbers of the ones we can delete
+            return obj.type_id;
+        }).forEach( (num) => {
+            if(num == id){ //if number = id, delete it
+                deleteType(+id)//change id into number
+                .then( () => {
+                    res.end(); //res.status(200).end();  ?
+                })
+            }
+        })
+        res.end();//res.status(200).end();  ?
     })
-    .catch( (err) => next(err));
+    .catch((err)=>{
+        next(err);
+    });
+
 };
+
