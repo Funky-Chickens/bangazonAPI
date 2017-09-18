@@ -161,7 +161,7 @@ __________________________________________
 #### DELETE
 - open POSTMAN app in chrome
 - set it to DELETE
-- test deleting one product by entering this url:
+- test deleting one payment option by entering this url:
     localhost:8080/bangazonAPI/v1/payments/[id](payment id you want to delete)
 - make sure to set the body to JSON format
 - send request
@@ -169,7 +169,7 @@ __________________________________________
 #### POST
 - open POSTMAN app in chrome
 - set it to POST
-- test post a product by entering this url:
+- test post a payment option by entering this url:
    localhost:8080/bangazonAPI/v1/payments
 - make sure to set the body to JSON format
 - insert an object to post with the properties listed in the database and the information you wish to
@@ -179,7 +179,7 @@ __________________________________________
 #### PUT
 - open POSTMAN app in chrome
 - set it to PUT
-- put a product by entering this url:
+- put a payment option by entering this url:
    localhost:8080/bangazonAPI/v1/payments/[id](payment id you want to edit)
 - make sure to set the body to JSON format
 - insert an object to post with the properties listed in the database and the information you wish to
