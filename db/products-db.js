@@ -8,7 +8,7 @@ module.exports.generateProdTypes = () => {
 
   for (let i = 0; i < 12; i++) {
     let label = faker.commerce.department();
-    
+
     prodTypes.push({
       label
     });
@@ -24,7 +24,7 @@ module.exports.generateProducts = () => {
     let price = faker.commerce.price();
     let name = faker.commerce.productName();
     let quantity = faker.random.number();
-    let type_id = i%12 + 1;
+    let product_type_id = i%12 + 1;
     let seller_id = faker.random.number();
 
 
@@ -33,7 +33,7 @@ module.exports.generateProducts = () => {
       price,
       name,
       quantity,
-      type_id,
+      product_type_id,
       seller_id
     });
   }

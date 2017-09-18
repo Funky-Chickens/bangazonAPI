@@ -18,13 +18,13 @@ app.use(`/bangazonAPI/v1/`, routes); //require in routes so it will look in inde
 
 //other middleware?
 
-app.use((req, res, next)=>{
+app.use( (req, res, next) => {
     let error = new Error('sorry, not found.');
     error.status = 404;
-    next(err);
+    next(error);
 });
 
-app.use((err, req, res, next)=>{
+app.use( (err, req, res, next) => {
     console.log(err)
     res.status(err.status||500);
     res.json({
@@ -33,6 +33,6 @@ app.use((err, req, res, next)=>{
     })
 });
 
-app.listen(process.env.port || 8080, ()=>{
+app.listen(process.env.port || 8080, () => {
     console.log("Listening on port specified.");
 });
