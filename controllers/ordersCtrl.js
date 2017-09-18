@@ -1,5 +1,5 @@
  'use strict'
-const{getOrders, getOneOrder, postOrderObj, deleteOneOrder, putOrder}= require('../models/Order');
+const{getOrders, getOneOrder, postOrderObj, postProdOrderObj, deleteOneOrder, deleteOneProdOrder, putOrder}= require('../models/Order');
 
 module.exports.getAll=(req, res, next)=>{
     getOrders()//from models folder
@@ -44,6 +44,24 @@ module.exports.putOrder = (req, res, next) => {
 
 module.exports.deleteOneOrder = ({params: {id}}, res, next) => {
     deleteOneOrder(id)
+    .then( () => {
+        res.status(200).end();
+    })
+    .catch( (err) => next(err));
+};
+
+module.exports.postProdOrder = (req, res, next) => {
+    postProdOrderObj(req.body)
+    .then((data) => {
+        res.status(200).end('product order posted sucessfully');
+    })
+    .catch((err)=>{
+        next(err);
+    })
+}
+
+module.exports.deleteOneProdOrder = ({params: {id}}, res, next) => {
+    deleteOneProdOrder(id)
     .then( () => {
         res.status(200).end();
     })
