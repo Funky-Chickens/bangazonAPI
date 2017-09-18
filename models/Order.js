@@ -17,6 +17,7 @@ let formatOrder = (order) => {
     return formattedOrder
 }
 
+
 let deleteNoProdOrders = (id) => {
         return new Promise((resolve, reject)=>{
             db.all(`SELECT * FROM productOrders WHERE line_item_id = ${id}`, (err, lineId)=> {
@@ -87,16 +88,11 @@ module.exports = {
         return new Promise( (resolve, reject) => {//select order by order id and delete a single order 
             db.run(`DELETE 
                 FROM orders
-                WHERE order_id = ${id}`, (err, order) => {
+                WHERE order_id = ${id} AND payment_type IS NULL`, (err, order) => {
                     if (err) return reject(err);
                     resolve(order);
             });
-            db.run(`DELETE
-                FROM productOrders
-                WHERE order_id = ${id}`, (err, prodOrder) => {
-                    if (err) return reject(err);
-                    resolve(prodOrder);
-            });
+
         });
     },
 
@@ -140,6 +136,19 @@ module.exports = {
 
         });
     },
+
+    removeOrderJoins:(id) => {
+        return new Promise ( (resolve, reject) => {
+            db.run(`DELETE
+            FROM productOrders
+            WHERE order_id = ${id}`, (err, prodOrder) => {
+                if (err) return reject(err);
+                resolve(prodOrder);
+            });
+       
+        })
+    },
+
 //returns all orders from the specified user
     getUsersOrders:(uid) => {
         return new Promise( (resolve, reject) => {
