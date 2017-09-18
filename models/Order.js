@@ -88,12 +88,25 @@ module.exports = {
         return new Promise( (resolve, reject) => {//select order by order id and delete a single order 
             db.run(`DELETE 
                 FROM orders
-                WHERE order_id = ${id} AND payment_type IS NULL`, (err, order) => {
+                WHERE order_id = ${id} AND payment_type IS NULL`, function(err) {
+                    console.log("this changes", this.changes);
                     if (err) return reject(err);
-                    resolve(order);
+                    resolve(this.changes);
             });
 
         });
+    },
+
+    removeOrderJoins:(id) => {
+        return new Promise ( (resolve, reject) => {
+            db.run(`DELETE
+            FROM productOrders
+            WHERE order_id = ${id}`, (err, prodOrder) => {
+                if (err) return reject(err);
+                resolve(prodOrder);
+            });
+       
+        })
     },
 
 //updates an existing order in the order table
@@ -135,18 +148,6 @@ module.exports = {
             })
 
         });
-    },
-
-    removeOrderJoins:(id) => {
-        return new Promise ( (resolve, reject) => {
-            db.run(`DELETE
-            FROM productOrders
-            WHERE order_id = ${id}`, (err, prodOrder) => {
-                if (err) return reject(err);
-                resolve(prodOrder);
-            });
-       
-        })
     },
 
 //returns all orders from the specified user

@@ -36,11 +36,13 @@ module.exports.putOrder = (req, res, next) => {
 
 module.exports.deleteOneOrder = ({params: {id}}, res, next) => {
     deleteOneOrder(id)
-    .then( () => {
-        removeOrderJoins(id)
+    .then( (changes) => {
+        console.log(changes);
+        if (changes) return removeOrderJoins(id);
+        else res.send('Cannot delete this historical item');
     })
     .then( () => {
-        res.status(200).end();
+        res.status(200).end('Order deleted');
     })
     .catch( (err) => next(err));
 }
