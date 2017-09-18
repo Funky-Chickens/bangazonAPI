@@ -128,3 +128,9 @@ _____________________________________________
    post
 - make sure there is no ID
 - send request
+
+#### GET all users with or without orders
+- GET: users with orders:
+- http://localhost:8080/bangazonAPI/v1/users?active=true
+- GET: users with no orders:
+- http://localhost:8080/bangazonAPI/v1/users?active=false
