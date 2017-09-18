@@ -23,6 +23,7 @@ let deleteNoProdOrders = (id) => {
         return new Promise((resolve, reject)=>{
             db.all(`SELECT * FROM productOrders WHERE line_item_id = ${id}`, (err, lineId)=> {
                 if (err) return reject(err);
+                if (lineId[0]) {
                 db.all(`SELECT * FROM productOrders WHERE order_id = ${lineId[0].order_id}
                     `, (err, orderData)=>{
                     if (err) return reject(err);//if error, pass on to error handler
@@ -35,7 +36,8 @@ let deleteNoProdOrders = (id) => {
                             else {
                                 resolve("ELSE");
                             }
-                });
+                    });
+                }
             })
             resolve();
             
