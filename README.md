@@ -1,3 +1,4 @@
+
 # Bangazon API  
 This API is to allow developers to access the customers and products and related resources in order to GET, POST, PUT, and in some cases DELETE the relevant data.
 
