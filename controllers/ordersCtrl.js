@@ -63,7 +63,7 @@ module.exports.postProdOrder = (req, res, next) => {
 module.exports.deleteOneProdOrder = ({params: {id}}, res, next) => {
     deleteOneProdOrder(id)
     .then( () => {
-        res.status(200).end();
+        res.status(200).end("Item deteled from order.");
     })
     .catch( (err) => next(err));
 };
