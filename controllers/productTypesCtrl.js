@@ -8,9 +8,7 @@ module.exports.getProductTypes = (req, res, next) => {
     .then( (prodTypes) => {
         res.status(200).json(prodTypes);
     })
-    .catch( (err) => {
-        next(err);
-    });
+    .catch( (err) => next(err));
 };
 
 //grabs a single producttype by product ID
@@ -26,7 +24,7 @@ module.exports.getOneProductType = ({params: {id}}, res, next) => {
 module.exports.postProductType = (req, res, next) => {
     addType(req.body)
     .then( (data) => {
-        res.status(200).end();
+        res.status(200).end('New product type posted.');
     })
     .catch( (err) => next(err));
 };
@@ -35,7 +33,7 @@ module.exports.postProductType = (req, res, next) => {
 module.exports.replaceProductType = (req, res, next) => {
     replaceType(req.params.id, req.body)
     .then( (data) => {
-        res.status(200).end();
+        res.status(200).end('Product type replaced.');
     })
     .catch( (err) => next(err));
 };
@@ -48,21 +46,17 @@ module.exports.deleteAProductType = ({params: {id}}, res, next) => {
             if (prodTypeObj.product_type_id === null){
                 return prodTypeObj;  //return the objects that have product_type_id of null
             }
-        }).map( (obj) => {//map through and return the type id numbers of the ones we can delete
+        }).map( (obj) => {//map through and return the type id numbers of the ones able to delete
             return obj.type_id;
         }).forEach( (num) => {
             if(num == id){ //if number = id, delete it
                 deleteType(+id)//change id into number
                 .then( () => {
-                    res.end(); //res.status(200).end();  ?
-                })
-            }
-        })
-        res.end();//res.status(200).end();  ?
+                    res.status(200).end();
+                });
+            };
+        });
+        res.status(200).end();
     })
-    .catch((err)=>{
-        next(err);
-    });
-
+    .catch( (err) => next(err));
 };
-

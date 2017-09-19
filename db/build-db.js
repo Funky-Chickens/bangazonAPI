@@ -1,14 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(__dirname+'/bangazon.sqlite');
+//faker data
 const { generateEmployees } = require('./employees-db');
 const { generatePaymentOptions } = require('./payment-options-db');
 const { generateProdTypes, generateProducts } = require('./products-db.js');
 const { generateUsers } = require('./users-db');
 const { generateDepartments } = require('./departments-db.js');
-//faker data
 const { generateTraining } = require('./training-progs-db');
 const { generateOrders } = require('./orders-db');
 const { generateComputers } = require('./computers-db')
+
 db.serialize( () => {
 
     db.run(`DROP TABLE IF EXISTS users`);
@@ -106,9 +107,29 @@ db.serialize( () => {
 //users
     let usersArray = generateUsers();
     usersArray.forEach( (userObj) => {
-        db.run(`INSERT INTO users (first_name, last_name, start_date, last_login, street_address, city, state, postal_code, phone, email) VALUES 
-        ("${userObj.first_name}", "${userObj.last_name}", "${userObj.start_date}", "${userObj.last_login}", "${userObj.street_address}", 
-        "${userObj.city}", "${userObj.state}", ${userObj.postal_code}, "${userObj.phone}", "${userObj.email}")`);
+        db.run(`INSERT 
+            INTO users 
+            (first_name, 
+            last_name, 
+            start_date, 
+            last_login, 
+            street_address, 
+            city, 
+            state, 
+            postal_code, 
+            phone, 
+            email) 
+            VALUES 
+        ("${userObj.first_name}", 
+        "${userObj.last_name}", 
+        "${userObj.start_date}", 
+        "${userObj.last_login}", 
+        "${userObj.street_address}", 
+        "${userObj.city}", 
+        "${userObj.state}", 
+        ${userObj.postal_code}, 
+        "${userObj.phone}", 
+        "${userObj.email}")`);
     });
 
 //product types
@@ -129,7 +150,7 @@ db.serialize( () => {
 // orders
     let orders = generateOrders();
     orders.forEach((orderObj)  => {
-        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
+        db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, 
             ${orderObj.buyer_id})`);
     });
 

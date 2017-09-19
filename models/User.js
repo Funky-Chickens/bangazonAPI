@@ -1,5 +1,4 @@
  //delegate methods for querying database with promises here
-
 'use strict';
 
 let sqlite3 = require ('sqlite3').verbose();
