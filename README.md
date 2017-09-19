@@ -131,3 +131,25 @@ __________________________________________
 #### PUT
 - `http://localhost:8080/bangazonAPI/v1/payments/[unique_payment_id]`
 - Takes a JSON object in the format specified above.
+_____________________________________________
+### To access the 'product types' resource
+#### GET all
+- `http://localhost:8080/bangazonAPI/v1/producttypes`
+- Returns all products in the following format:
+{
+    "type_id": 1,
+    "label": Electronics
+}
+#### GET one
+- `http://localhost:8080/bangazonAPI/v1/producttypes/[unique_product_type_id]`
+-Returns one product by its unique product type id.
+#### DELETE
+- `http://localhost:8080/bangazonAPI/v1/producttypes/[unique_product_type_id]`
+- Deletes one product type by its unique product type id.
+    *note* - you will not be able to delete a product type if it is currently assigned to an existing product
+#### POST
+- `http://localhost:8080/bangazonAPI/v1/producttypes`
+- Takes a JSON object in the format specified above.
+#### PUT
+- `http://localhost:8080/bangazonAPI/v1/producttypes/[unique_product_type_id]`
+- Takes a JSON object in the format specified above.
