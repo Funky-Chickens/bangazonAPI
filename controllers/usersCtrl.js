@@ -1,4 +1,4 @@
- 'use strict'
+'use strict'
 const{ getUsers, getOneUser, postUserObj, putUserObj, doesUserHaveOrders } = require('../models/User'); //and whatever other methods exported
 
 module.exports.getAll = (req, res, next) => {

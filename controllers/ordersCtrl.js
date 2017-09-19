@@ -1,4 +1,4 @@
- 'use strict'
+'use strict'
 const { getOrders, getOneOrder, postOrderObj, postProdOrderObj, deleteOneOrder, deleteOneProdOrder, putOrder, getUsersOrders } = require('../models/Order');
 
 module.exports.getAll=(req, res, next)=>{

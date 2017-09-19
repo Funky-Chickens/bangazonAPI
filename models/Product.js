@@ -76,6 +76,4 @@ module.exports ={
         });
     }
 
-//post, put, patch, delete (whatever's required) also here for user
-//exporting methods with value of promises to be called and resolved in controller
 }

@@ -20,14 +20,6 @@ module.exports.getOneProduct = ({params: {id}}, res, next) => {
     .catch( (err) => next(err));
 };
 
-// module.exports.deleteOneProduct = ({params: {id}}, res, next) => {
-//     deleteOneProduct(id)
-//     .then( () => {
-//         res.status(200).end();
-//     })
-//     .catch( (err) => next(err));
-// };
-
 module.exports.postprodObj = (req, res, next) => {
     postprodObj(req.body)
     .then( () => {
@@ -62,7 +54,7 @@ module.exports.deleteAProduct = ({params: {id}}, res, next) => {
         });
         res.end();//res.status(200).end();  ?
     })
-    .catch((err)=>{
+    .catch( (err) => {
         next(err);
     });
 
