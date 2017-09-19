@@ -150,7 +150,7 @@ db.serialize( () => {
 // orders
     let orders = generateOrders();
     orders.forEach((orderObj)  => {
-        db.run(`INSERT INTO orders (order_date, payment_type, buyer_id) VALUES ("${orderObj.order_date}", ${orderObj.payment_type}, 
+        db.run(`INSERT INTO orders VALUES (null, "${orderObj.order_date}", ${orderObj.payment_type}, 
             ${orderObj.buyer_id})`);
     });
 

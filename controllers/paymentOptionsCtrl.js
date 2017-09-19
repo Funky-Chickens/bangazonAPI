@@ -1,8 +1,6 @@
 'use strict';
 
-//export getAllPmtOptions, getOnePmtOptionById, postPmtOption
-//require in models files for payment options
-const{getPayments, getOnePayment, postPayment, replacePayment, deletePayment, paymentTypeMatch}= require('../models/PaymentOption'); //and whatever other methods exported
+const { getPayments, getOnePayment, postPayment, replacePayment, deletePayment, paymentTypeMatch } = require('../models/PaymentOption'); 
 
 module.exports.getAllPmtOptions = (req, res, next) => {
     getPayments()//from models folder
@@ -17,23 +15,22 @@ module.exports.getOnePmtOptionById = (req, res, next) => {
     .then( (pmtOpt) => {
         res.status(200).json(pmtOpt);
     })
-    .catch((err)=> next(err));
-}
+    .catch( (err) => next(err));
+};
 
-//dev must set postman to JSON format for these too.
 module.exports.postPmtOption = (req, res, next) => {
     postPayment(req.body)
-    .then((data) => {
-        res.status(200);
+    .then( (data) => {
+        res.status(200).end('Payment type posted.');
     })
-    .catch((err)=> next(err));
-}
+    .catch( (err) => next(err));
+};
 
 //takes an ID and replaces the corresponding payment type
 module.exports.replacePaymentOption = (req, res, next) => {
     replacePayment(req.params.id, req.body)//id and object with payment info passed in here
     .then( (data) => {
-        res.status(200).end();//new object posted
+        res.status(200).end('Payment type replaced.');
     })
     .catch( (err) => next(err));
 };
@@ -45,22 +42,18 @@ module.exports.deletePaymentOption = ({params: {id}}, res, next) => {
         data.filter( (pmtTypeObj) => {
             if (pmtTypeObj.payment_type === null) {
                 return pmtTypeObj;  //return the objects that have pmt type of null in orders table
-            }
-        }).map( (obj) => {//map through and return the id numbers of what we can delete from paymentOptions table
+            };
+        }).map( (obj) => {//map through and return the id numbers of what is able to be deleted from paymentOptions table
             return obj.payment_id;
         }).forEach( (num) => {
             if(num == id) { //if number = id, delete payment option
                 deletePayment(+id)//change id into number
                 .then( () => {
-                    res.end(); //res.status(200).end();  ?
-                })
-            }
-        })
-        res.end();//res.status(200).end();  ?
+                    res.status(200).end();
+                });
+            };
+        });
+        res.status(200).end();
     })
-    .catch( (err) => {
-        next(err);
-    });
-
+    .catch( (err) => next(err));
 };
-
