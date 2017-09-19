@@ -1,6 +1,7 @@
 'use strict';
 
-const { getOrders, getOneOrder, postOrderObj, postProdOrderObj, deleteOneOrder, deleteOneProdOrder, putOrder, getUsersOrders } = require('../models/Order');
+const { getOrders, getOneOrder, postOrderObj, postProdOrderObj, removeOrderJoins, deleteOneOrder, deleteOneProdOrder, putOrder, getUsersOrders } = require('../models/Order');
+
 
 module.exports.getAll = (req, res, next) => {
     getOrders()//from models folder
@@ -36,8 +37,12 @@ module.exports.putOrder = (req, res, next) => {
 
 module.exports.deleteOneOrder = ({params: {id}}, res, next) => {
     deleteOneOrder(id)
+    .then( (changes) => {
+        if (changes) return removeOrderJoins(id);
+        else res.send('Cannot delete this historical item');
+    })
     .then( () => {
-        res.status(200).end();
+        res.status(200).end('Order deleted');
     })
     .catch( (err) => next(err));
 };
